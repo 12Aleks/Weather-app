@@ -1,33 +1,66 @@
-import React from 'react';
-import Info from "./componets/info";
-import Weather from "./componets/weather";
-import {Container, Col} from "react-bootstrap";
-import CityForm from "./componets/form";
+import React, {useContext, useEffect, useState} from 'react';
+import {Container, Row, Col} from "react-bootstrap";
+import Forms from "./components/form";
+import Context from "./context";
 
-const KEY = process.env.REACT_APP_API_KEY
+const KEY = process.env.REACT_APP_KEY
 
-class App extends React.Component {
+function App() {
+    const [state, setState] = useState({})
+    const [temp, setTemp] = useState('metric')
+    const [city, setCity] = useState('')
 
-    gettingWeather = async (e) => {
+    const getWeather = async (city, temp) => {
+        try {
+            if (city) {
+                const data = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${temp}&appid=${KEY}`)
+                let rez = await data.json();
+                setState({
+                    city: rez.name,
+                    country: rez.sys.country,
+                    temp: rez.main.temp,
+                    wind: rez.wind.speed.value,
+                    windUnit: rez.wind.speed.unit,
+                    windName: rez.wind.speed.name,
+                    windDirection: rez.wind.direction,
+                    clouds: rez.clouds.value,
+                    sunrise: rez.sys.sunrise,
+                    sunset: rez.sys.sunset
+                })
+                console.log(rez)
+                setCity('')
+            }
+
+        } catch (e) {
+            console.log('Error', e)
+        }
+
+    }
+
+    const updateData = e => {
         e.preventDefault();
-        const city = e.target.elements.city.value
-        let api_url = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${KEY}`)
-        let data = await api_url.json()
-        console.log(data)
+        const newData = e.target.elements.city.value;
+        if (newData.length > 2) {
+            setCity(newData)
+        }
     }
 
-    render() {
-        return (
-            <Container>
-                <Col>
-                    <Info/>
-                    <CityForm weatherMethod={this.gettingWeather}/>
-                    <Weather />
-                </Col>
+    useEffect(() => {
+        getWeather(city, temp)
+    }, [city, temp])
+
+    return (
+            <Context.Provider value={{city}}>
+            <Container className="App">
+                <Row>
+                    <Col>
+                        <p>{state.city}</p>
+                        <Forms submit={updateData}/>
+                    </Col>
+                </Row>
             </Container>
-
-        );
-    }
+            </Context.Provider>
+    );
 }
 
 export default App;
