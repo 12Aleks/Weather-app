@@ -51,14 +51,17 @@ function App() {
 
     return (
             <Context.Provider value={{city}}>
-            <Container className="App">
+              <Container>
                 <Row>
-                    <Col>
+                    <Col  className="app">
                         <p>{state.city}</p>
+                    </Col>
+                    <Col >
+
                         <Forms submit={updateData}/>
                     </Col>
                 </Row>
-            </Container>
+              </Container>
             </Context.Provider>
     );
 }
