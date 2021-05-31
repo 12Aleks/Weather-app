@@ -1,21 +1,28 @@
-import React, {useContext, useState} from 'react';
+import React, {useState} from 'react';
 import {Form, Button} from "react-bootstrap";
-import Context from "../context";
 
 const Forms = ({submit}) => {
-    const {city} = useContext(Context)
+    const [value, setValue] = useState('');
 
+    function updateValue(e){
+        e.preventDefault()
+        setValue(e.target.value)
+    }
 
     return (
-        <Form onSubmit={submit}>
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Label>City</Form.Label>
-                <Form.Control type="text" name='city' value={city}  placeholder="Enter city" />
-            </Form.Group>
-            <Button variant="primary" type="submit">
+        <div className='content'>
+            <Form.Control
+                type="text"
+                value={value}
+                placeholder="Enter city"
+                onChange={updateValue}
+            />
+            <div className="button_wrapper">
+            <Button variant="primary" onClick={() => submit(value)}>
                 Submit
             </Button>
-        </Form>
+            </div>
+        </div>
     );
 };
 

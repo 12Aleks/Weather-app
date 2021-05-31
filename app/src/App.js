@@ -1,9 +1,21 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Container, Row, Col} from "react-bootstrap";
 import Forms from "./components/form";
-import Context from "./context";
+import Background from './assets/Images/city.png'
+import SunBackground from './assets/Images/sun.jpg'
+import Circle from "./components/circle";
 
 const KEY = process.env.REACT_APP_KEY
+
+
+function convert(utcSeconds) {
+    let date = new Date(utcSeconds * 1000);
+    let hours = date.getHours();
+    let minutes = "0" + date.getMinutes();
+    let seconds = "0" + date.getSeconds();
+    let formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+    return formattedTime
+}
 
 function App() {
     const [state, setState] = useState({})
@@ -24,8 +36,8 @@ function App() {
                     windName: rez.wind.speed.name,
                     windDirection: rez.wind.direction,
                     clouds: rez.clouds.value,
-                    sunrise: rez.sys.sunrise,
-                    sunset: rez.sys.sunset
+                    sunrise: convert(rez.sys.sunrise),
+                    sunset: convert(rez.sys.sunset)
                 })
                 console.log(rez)
                 setCity('')
@@ -37,11 +49,9 @@ function App() {
 
     }
 
-    const updateData = e => {
-        e.preventDefault();
-        const newData = e.target.elements.city.value;
-        if (newData.length > 2) {
-            setCity(newData)
+    const updateData = value => {
+        if (value.length > 2) {
+            setCity(value)
         }
     }
 
@@ -50,19 +60,21 @@ function App() {
     }, [city, temp])
 
     return (
-            <Context.Provider value={{city}}>
-              <Container>
-                <Row>
-                    <Col  className="app">
-                        <p>{state.city}</p>
-                    </Col>
-                    <Col >
-
+        <Container style={{backgroundImage: `url(${SunBackground})`}}>
+            <Row>
+                <Col md={12}>
+                    <div className='wrapper'>
+                        <Circle/>
+                        <div className="data">
+                            <p>City: {state.city}</p>
+                            <p>Sunrise: {state.sunrise}</p>
+                            <p>Sunset: {state.sunset}</p>
+                        </div>
                         <Forms submit={updateData}/>
-                    </Col>
-                </Row>
-              </Container>
-            </Context.Provider>
+                    </div>
+                </Col>
+            </Row>
+        </Container>
     );
 }
 
