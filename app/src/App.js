@@ -1,28 +1,23 @@
 import React, {useEffect, useState} from 'react';
-import {Container, Row, Col} from "react-bootstrap";
+import {Container, Row, Col, Button} from "react-bootstrap";
 import Forms from "./components/form";
-import Background from './assets/Images/city.png'
 import SunBackground from './assets/Images/sun.jpg'
 import Circle from "./components/circle";
+import {convert} from "./location";
+import GetLocations from "./components/getLocations";
 
 const KEY = process.env.REACT_APP_KEY
 
 
-function convert(utcSeconds) {
-    let date = new Date(utcSeconds * 1000);
-    let hours = date.getHours();
-    let minutes = "0" + date.getMinutes();
-    let seconds = "0" + date.getSeconds();
-    let formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-    return formattedTime
-}
+
 
 function App() {
     const [state, setState] = useState({})
     const [temp, setTemp] = useState('metric')
     const [city, setCity] = useState('')
 
-    const getWeather = async (city, temp) => {
+
+    const getCityWeather = async (city, temp) => {
         try {
             if (city) {
                 const data = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${temp}&appid=${KEY}`)
@@ -49,15 +44,25 @@ function App() {
 
     }
 
-    const updateData = value => {
+    // const icon_url = `http://openweathermap.org/img/w/`+` dataDecoded["weather"]["icon"] +".png`
+
+    const updateCity = value => {
         if (value.length > 2) {
             setCity(value)
         }
     }
 
+    const updateState = value => {
+            setState(value)
+    }
+
     useEffect(() => {
-        getWeather(city, temp)
+        getCityWeather(city, temp)
     }, [city, temp])
+
+
+
+
 
     return (
         <Container style={{backgroundImage: `url(${SunBackground})`}}>
@@ -66,11 +71,13 @@ function App() {
                     <div className='wrapper'>
                         <Circle/>
                         <div className="data">
+                            {/*<img src={require(`http://openweathermap.org/img/w/`)} alt=""/>*/}
                             <p>City: {state.city}</p>
                             <p>Sunrise: {state.sunrise}</p>
                             <p>Sunset: {state.sunset}</p>
+                            <GetLocations setLocations={updateState}/>
                         </div>
-                        <Forms submit={updateData}/>
+                        <Forms submit={updateCity}/>
                     </div>
                 </Col>
             </Row>
