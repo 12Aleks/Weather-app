@@ -1,13 +1,8 @@
-import React, {useEffect, useState} from 'react';
-import {Container, Row, Col, Button} from "react-bootstrap";
+import React, {useState} from 'react';
+import {Container, Row, Col, Button, Image} from "react-bootstrap";
+import GetLocations from "./components/getLocations";
 import Forms from "./components/form";
 import SunBackground from './assets/Images/sun.jpg'
-import Circle from "./components/circle";
-
-import GetLocations from "./components/getLocations";
-
-
-
 
 
 
@@ -17,18 +12,13 @@ function App() {
     const [city, setCity] = useState('')
     const [locality, setLocality] =useState(false)
 
-
-
-
-    // const icon_url = `http://openweathermap.org/img/w/`+` dataDecoded["weather"]["icon"] +".png`
-
     const updateCity = value => {
         if (value.length > 2) {
             setCity(value)
         }
     }
 
-    const updateState = value => {
+    const updateState =  value => {
             setState(value);
             setCity('');
     }
@@ -38,13 +28,15 @@ function App() {
             <Row>
                 <Col md={12}>
                     <div className='wrapper'>
-                        <Circle/>
                         <div className="data">
-                            {/*<img src={require(`http://openweathermap.org/img/w/`)} alt=""/>*/}
+                            <GetLocations setLocations={updateState}/>
+                            <Image src={`${process.env.REACT_APP_URL}assets/icons/${state.icon}.png`}  style={{width: 50, height: 50}}/>
+                            {/*<img src={ `${process.env.REACT_APP_URL}/icons/${state.icon}.png`} style={{width: 50, height: 50}} alt=""/>*/}
+                            {state.icon}
                             <p>{locality?'City':'Locality'}: {state.city}</p>
                             <p>Sunrise: {state.sunrise}</p>
                             <p>Sunset: {state.sunset}</p>
-                            <GetLocations setLocations={updateState}/>
+
                         </div>
                         <Forms temp={temp} setState={updateState} setCity={updateCity}/>
                     </div>

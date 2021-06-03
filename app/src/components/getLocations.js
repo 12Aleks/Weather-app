@@ -11,7 +11,7 @@ const GetLocations = ({setLocations}) => {
             if (latitude, longitude) {
                 const data = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=${temp}&appid=${KEY}`)
                 let rez = await data.json();
-                setLocations({
+                await setLocations({
                     city: rez.name,
                     country: rez.sys.country,
                     temp: rez.main.temp,
@@ -20,8 +20,9 @@ const GetLocations = ({setLocations}) => {
                     windName: rez.wind.speed.name,
                     windDirection: rez.wind.direction,
                     clouds: rez.clouds.value,
-                    sunrise: await convert(rez.sys.sunrise),
-                    sunset: await convert(rez.sys.sunset)
+                    icon: rez.weather[0].icon,
+                    sunrise: convert(rez.sys.sunrise),
+                    sunset:  convert(rez.sys.sunset)
                 })
                 console.log(rez)
             }
