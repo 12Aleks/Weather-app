@@ -13,4 +13,12 @@ export function convert(utcSeconds) {
     return formattedTime
 }
 
+export function realTime(locales){
+    let data = new Intl.DateTimeFormat(locales, {
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric'
+    })
+}
+
 

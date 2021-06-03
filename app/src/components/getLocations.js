@@ -1,5 +1,4 @@
-import React from 'react';
-import {Button} from "react-bootstrap";
+import React, {useEffect} from 'react';
 import {getLocation , convert} from "../location";
 const KEY = process.env.REACT_APP_KEY
 
@@ -31,13 +30,10 @@ const GetLocations = ({setLocations}) => {
         }
     }
 
-    return (
-        <div>
-            <Button variant="primary" onClick={getLocationsWeather}>
-                Submit
-            </Button>
-        </div>
-    );
+    useEffect(() => {
+        getLocationsWeather()
+    }, [])
+   return (<div></div>)
 };
 
 export default GetLocations;

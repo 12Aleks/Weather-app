@@ -1,12 +1,46 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Form, Button} from "react-bootstrap";
+import {convert} from "../location";
 
-const Forms = ({submit}) => {
+const KEY = process.env.REACT_APP_KEY
+
+const Forms = ({temp, setState, setCity}) => {
     const [value, setValue] = useState('');
+
+    const getCityWeather = async (value, temp) => {
+        try {
+            if (value) {
+                const data = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${value}&units=${temp}&appid=${KEY}`)
+                let rez = await data.json();
+                setState({
+                    city: rez.name,
+                    country: rez.sys.country,
+                    temp: rez.main.temp,
+                    wind: rez.wind.speed.value,
+                    windUnit: rez.wind.speed.unit,
+                    windName: rez.wind.speed.name,
+                    windDirection: rez.wind.direction,
+                    clouds: rez.clouds.value,
+                    sunrise: convert(rez.sys.sunrise),
+                    sunset: convert(rez.sys.sunset)
+                })
+                console.log(rez)
+                setCity('')
+            }
+
+        } catch (e) {
+            console.log('Error', e)
+        }
+    }
 
     function updateValue(e){
         e.preventDefault()
         setValue(e.target.value)
+    }
+
+    function submitForm(){
+        getCityWeather(value, temp)
+        setValue('')
     }
 
     return (
@@ -18,7 +52,7 @@ const Forms = ({submit}) => {
                 onChange={updateValue}
             />
             <div className="button_wrapper">
-            <Button variant="primary" onClick={() => submit(value)}>
+            <Button variant="primary" onClick={() => submitForm()}>
                 Submit
             </Button>
             </div>
