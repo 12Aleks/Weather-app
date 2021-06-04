@@ -1,13 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React, { useState} from 'react';
 import {Form, Button} from "react-bootstrap";
 import {convert} from "../location";
 
 const KEY = process.env.REACT_APP_KEY
 
-const Forms = ({temp, setState, setCity}) => {
+const Forms = ({temp, setState, setCity, setLoading}) => {
     const [value, setValue] = useState('');
 
     const getCityWeather = async (value, temp) => {
+        setLoading(true)
         try {
             if (value) {
                 const data = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${value}&units=${temp}&appid=${KEY}`)
@@ -21,6 +22,7 @@ const Forms = ({temp, setState, setCity}) => {
                     windName: rez.wind.speed.name,
                     windDirection: rez.wind.direction,
                     clouds: rez.clouds.value,
+                    icon: rez.weather[0].icon,
                     sunrise: convert(rez.sys.sunrise),
                     sunset: convert(rez.sys.sunset)
                 })
@@ -52,9 +54,9 @@ const Forms = ({temp, setState, setCity}) => {
                 onChange={updateValue}
             />
             <div className="button_wrapper">
-            <Button variant="primary" onClick={() => submitForm()}>
-                Submit
-            </Button>
+                <Button variant="primary" onClick={() => submitForm()}>
+                    Submit
+                </Button>
             </div>
         </div>
     );
