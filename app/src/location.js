@@ -1,6 +1,6 @@
-export function getLocation(){
+export function getLocation() {
     return new Promise((resolve, reject) => {
-       navigator.geolocation.getCurrentPosition(resolve, reject)
+        navigator.geolocation.getCurrentPosition(resolve, reject)
     })
 }
 
@@ -13,12 +13,10 @@ export function convert(utcSeconds) {
     return formattedTime
 }
 
-export function realTime(locales){
-    let data = new Intl.DateTimeFormat(locales, {
-        hour: 'numeric',
-        minute: 'numeric',
-        second: 'numeric'
-    })
+export function realDay() {
+    let d = new Date(),
+        weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+    return weekday[d.getDay()]
 }
 
 
