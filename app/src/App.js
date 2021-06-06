@@ -1,5 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {Col, Container, Image, Row, Spinner} from "react-bootstrap";
+import {Col, Container, Image, Row} from "react-bootstrap";
+import Loader from "./components/spiner";
+import FutureWeather from "./components/futureWeather";
+import {milliToDate, weekWeather} from "./future";
 // import Forms from "./components/form";
 import SunBackground from './assets/Images/sun.jpg'
 import {convert, getLocation, realDay} from "./location";
@@ -9,37 +12,42 @@ import icons from './icons'
 const KEY = process.env.REACT_APP_KEY
 
 function App() {
+    const [now, setNow] = useState({})
     const [state, setState] = useState({})
     const [temp, setTemp] = useState('metric')
     const [city, setCity] = useState('')
     const [locality, setLocality] = useState(false)
     const [loading, setLoading] = useState(true);
-    const [day, setDay] = useState('')
+    const [weekday, setWeekday] = useState('');
+    const [day, setDay] = useState('');
 
 
     const getLocationsWeather = async (temp) => {
         try {
             const {coords} = await getLocation();
-            const weekday = await realDay();
             let {latitude, longitude} = coords;
             if (latitude && longitude) {
-                const data = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&units=${temp}&cnt=5&appid=${KEY}`)
-                let rez = await data.json();
-                setState({
-                    city: rez.city.name,
-                    sunrise: await convert(rez.city.sunrise),
-                    sunset: await convert(rez.city.sunset),
-                    country: rez.city.country,
-                    temp: rez.list[0].main.temp,
-                    wind: rez.list[0].wind.speed.value,
-                    windUnit: rez.list[0].wind.speed.unit,
-                    windName: rez.list[0].wind.speed.name,
-                    windDirection: rez.list[0].wind.direction,
-                    clouds: rez.list[0].clouds.value,
-                    icon: rez.list[0].weather[0].icon,
+                const nowData = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=${temp}&appid=${KEY}`)
+                let rezNowData = await nowData.json();
+                setNow({
+                    city: rezNowData.name,
+                    country: rezNowData.sys.country,
+                    temp: rezNowData.main.temp,
+                    icon: rezNowData.weather[0].icon,
+                    description: rezNowData.weather[0].description,
+                    sunrise: convert(rezNowData.sys.sunrise),
+                    sunset: convert(rezNowData.sys.sunset),
                 });
-                console.log(rez)
-                setDay(weekday);
+
+                const data = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&units=${temp}&appid=${KEY}`)
+                let rez = await data.json();
+                console.log(rez);
+                await setState({
+                    week: rez.daily.slice(1, 5)
+                });
+                const {weekday, day} = await realDay(state.country);
+                setDay(day);
+                setWeekday(weekday);
                 setLoading(false)
             }
         } catch (e) {
@@ -73,9 +81,7 @@ function App() {
 
 
     if (loading) {
-        return <Spinner animation="border" role="status">
-            <span className="sr-only">Loading...</span>
-        </Spinner>
+        return <Loader/>
     }
 
 
@@ -84,22 +90,36 @@ function App() {
             <Row>
                 <Col md={12}>
                     <div className="wrapper">
-                        <div className="day">
-                            <h1>{day.toUpperCase()}</h1>
+                        <div className="weekDay">
+                            <h1>{weekday}</h1>
+                            <h4>{day}</h4>
                         </div>
                         <div className='data'>
-                            <p>{locality ? 'City' : 'Locality'}: {state.city}, {state.country}</p>
-                            <p>Sunrise: {state.sunrise}</p>
-                            <p>Sunset: {state.sunset}</p>
+                            <p>{locality ? 'City' : 'Locality'}: {now.city}, {now.country}</p>
+                            <p>Sunrise: {now.sunrise}</p>
+                            <p>Sunset: {now.sunset}</p>
                         </div>
                         <div className='current_data_wrapper'>
                             <div className="img-wrapper">
-                                <Image src={icons[`${state.icon}`].default} alt="weather icon"/>
-                                <p className="temp">{state.temp} <span>{temp !== 'metric' ? '\u2109' : '\u2103'}</span></p>
+                                <Image src={icons[`${now.icon}`].default} alt="weather icon"/>
+                                <div>
+                                    <p className="temp">{now.temp}
+                                        <span>{temp !== 'metric' ? '\u2109' : '\u2103'}</span>
+                                    </p>
+                                    <p className='description'>{now.description}</p>
+                                </div>
                             </div>
                             <div className="future_data_wrapper">
-                                {/*<Temp temp={temp} handleClick={updateTemp}/>*/}
+                                {
+                                    // Object.keys(state.week).splice(1,4).map(function(key, index) {
+                                    //  return <FutureWeather key={key} day={state.week[key]}></FutureWeather>
+                                    // })
+                                    state.week.map(el => {
+                                        return <FutureWeather key={el.dt} day={el} country={state.country}/>
+                                    })
+                                }
 
+                                {/*<Temp temp={temp} handleClick={updateTemp}/>*/}
                                 {/*<Forms temp={temp} setState={updateState} setCity={updateCity} setLoading={() => setLoading(true)}/>*/}
                             </div>
                         </div>

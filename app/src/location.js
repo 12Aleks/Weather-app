@@ -13,10 +13,27 @@ export function convert(utcSeconds) {
     return formattedTime
 }
 
-export function realDay() {
-    let d = new Date(),
-        weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
-    return weekday[d.getDay()]
+export function realDay(locales, milliseconds) {
+    let options = {
+        weekday: {
+            weekday: 'long',
+        },
+        day: {
+            day: '2-digit',
+            month: 'long'
+        }
+    };
+
+    if(milliseconds){
+        let date = new Date(milliseconds * 1000);
+        return (new Intl.DateTimeFormat(locales, options.day).format(date));
+    }else{
+        let currentDate = new Date();
+        let weekday = (new Intl.DateTimeFormat(locales, options.weekday).format(currentDate));
+        let day = (new Intl.DateTimeFormat(locales, options.day).format(currentDate));
+        return {weekday, day}
+    }
 }
+
 
 
