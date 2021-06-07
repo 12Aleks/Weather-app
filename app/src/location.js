@@ -3,17 +3,13 @@ export function getLocation() {
         navigator.geolocation.getCurrentPosition(resolve, reject)
     })
 }
-
-export function convert(utcSeconds) {
-    let date = new Date(utcSeconds * 1000);
-    let hours = date.getHours();
-    let minutes = "0" + date.getMinutes();
-    let seconds = "0" + date.getSeconds();
-    let formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
-    return formattedTime
+//
+export function getLanguage(){
+    let len =  navigator.language.slice(0, 2);
+    return len
 }
 
-export function realDay(locales, milliseconds) {
+export function convert(locales, milliseconds, utcSeconds) {
     let options = {
         weekday: {
             weekday: 'long',
@@ -21,13 +17,21 @@ export function realDay(locales, milliseconds) {
         day: {
             day: '2-digit',
             month: 'long'
+        },
+        hour: {
+            minute: 'numeric',
+            hour: 'numeric'
         }
     };
+
 
     if(milliseconds){
         let date = new Date(milliseconds * 1000);
         return (new Intl.DateTimeFormat(locales, options.day).format(date));
-    }else{
+    }else if(utcSeconds){
+        let date = new Date(utcSeconds * 1000);
+        return (new Intl.DateTimeFormat(locales, options.hour).format(date));
+    } else{
         let currentDate = new Date();
         let weekday = (new Intl.DateTimeFormat(locales, options.weekday).format(currentDate));
         let day = (new Intl.DateTimeFormat(locales, options.day).format(currentDate));
