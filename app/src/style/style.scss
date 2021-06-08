@@ -28,7 +28,6 @@ h1, h4, p {
   transform: scale(0.8, 1);
   color: #ffffff;
   text-transform: uppercase;
-  margin: 15px;
   text-align: center;
 }
 
@@ -102,6 +101,7 @@ p {
 
     .data_wrapper {
       width: 100%;
+      position: relative;
 
       .current_data_wrapper, .future_data_wrapper, .current_data_wrapper .min_max {
         display: flex;
@@ -109,42 +109,49 @@ p {
         align-items: center;
       }
 
-      .current_data_wrapper {
+      .midl {
+        height: 255px;
         width: 100%;
         border-top: 2px solid $borderColor;
         position: relative;
-        .wind{
-          position: relative;
-          height: 40px;
+        .current_data_wrapper {
           width: 100%;
-          span{
-            font-size: 30px;
-            color: #666;
-          }
-        }
-        img {
-          margin: 0 auto;
-          display: block;
-          width:200px;
-          height: auto;
-        }
+          .wind {
+            position: relative;
+            height: 40px;
+            width: 100%;
 
-        h2.temp {
-          font: 300 90px/90px Lato, sans-serif;
-          margin: 15px auto;
-          padding: 0 15px;
-          text-align: center;
-          color: #ffffff;
-          text-shadow: 0 0 1px black;
-          span {
-            font: 100 50px/50px Lato, sans-serif;
+            span {
+              font-size: 30px;
+              color: #666;
+            }
+          }
+
+          img {
+            margin: 0 auto;
+            display: block;
+            width: 200px;
+            height: auto;
+          }
+
+          h2.temp {
+            font: 300 90px/90px Lato, sans-serif;
+            margin: 15px auto;
+            padding: 0 15px;
+            text-align: center;
+            color: #ffffff;
             text-shadow: 0 0 1px black;
-          }
-        }
 
-        .min_max {
-          p {
-            margin-bottom: 15px;
+            span {
+              font: 100 50px/50px Lato, sans-serif;
+              text-shadow: 0 0 1px black;
+            }
+          }
+
+          .min_max {
+            p {
+              margin-bottom: 15px;
+            }
           }
         }
       }
@@ -162,10 +169,12 @@ p {
           border-radius: 10%;
           padding: 10px;
           transition: all .7s;
+
           &:not(&:last-child) {
             margin-right: 2px;
             border-right: 1px solid $borderColor;
           }
+
           p {
             font: 500 20px/20px Lato, sans-serif;
             margin: 10px auto;
@@ -175,12 +184,14 @@ p {
             width: 70px;
             height: auto;
           }
+
           .min_max {
             p {
               font: 500 16px/16px Lato, sans-serif;
             }
           }
-          &:hover{
+
+          &:hover {
             background: rgb(150 150 150 / 44%);
             transition: all .7s;
           }

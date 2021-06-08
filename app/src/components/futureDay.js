@@ -6,9 +6,9 @@ import MinMax from "./minMax";
 
 const KEY = process.env.REACT_APP_KEY;
 
-const FutureDay = ({ day, temp, now, index}) => {
+const FutureDay = ({ day, temp, now, index, setFutureWeek}) => {
     const [selectDay, setSelectDay] = useState(0);
-    const [futureWeek, setFutureWeek] = useState({});
+
 
     const {latitude, longitude, lang } = now;
     const dayFuture = convert(lang, day.dt);
