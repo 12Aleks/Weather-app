@@ -1,16 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import {Col, Container, Image, Row} from "react-bootstrap";
 import Loader from "./components/spiner";
-import FutureWeather from "./components/futureWeather";
-// import Forms from "./components/form";
-import SunBackground from './assets/Images/sun.jpg'
-import {convert, getLanguage, getLocation} from "./location";
-import icons from './icons'
+import FutureDay  from "./components/futureDay";
 import MinMax from "./components/minMax";
 import TempStandard from "./components/tempStandard";
 import Wind from "./components/wind";
+import SunBackground from './assets/Images/sun.jpg'
+import icons from './icons'
+// import Forms from "./components/form";
 
-const KEY = process.env.REACT_APP_KEY
+import {convert, getLanguage, getLocation} from "./location";
+
+const KEY = process.env.REACT_APP_KEY;
 
 function App() {
     const [now, setNow] = useState({});
@@ -29,9 +30,13 @@ function App() {
             const lang = await getLanguage();
             let {latitude, longitude} = coords;
             if (latitude && longitude) {
-                const nowData = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&lang=${lang}&units=${temp}&appid=${KEY}`);
-                let currentData = await nowData.json();
-                console.log(currentData);
+                let apiUrl1 = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&lang=${lang}&units=${temp}&appid=${KEY}`;
+                let apiUrl2 = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&lang=${lang}&units=${temp}&appid=${KEY}`;
+                const [currentData, futureData] = await Promise.all([
+                    fetch(apiUrl1).then(response => response.json()),
+                    fetch(apiUrl2).then(response => response.json()),
+                ]);
+
                 setNow({
                     city: currentData.name,
                     country: currentData.sys.country,
@@ -41,38 +46,32 @@ function App() {
                     description: currentData.weather[0].description,
                     sunrise: await convert(currentData.sys.country, 0 ,currentData.sys.sunrise),
                     sunset: await convert(currentData.sys.country,0, currentData.sys.sunset),
-                    wind: currentData.wind
+                    wind: currentData.wind,
+                    latitude: latitude,
+                    longitude: longitude,
+                    day:  await convert(lang),
                 });
 
-                const data = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&lang=${lang}&units=${temp}&appid=${KEY}`);
-                let futureData = await data.json();
-                console.log(futureData)
-                await setState({
+                setState({
                     week: futureData.daily.slice(1, 5),
                     current: futureData.daily.slice(0, 1),
-                    hourly: futureData.hourly
                 });
-
-
-                const {weekday, day} = await convert(lang);
-                setDay(day);
-                setWeekday(weekday);
                 setLoading(false);
             }
         } catch (e) {
             console.log("Error", e)
         }
-    }
+    };
 
     useEffect(() => {
         getLocationsWeather(temp)
-    }, [temp])
+    }, [temp]);
 
     const updateCity = value => {
         if (value.length > 2) {
             setCity(value)
         }
-    }
+    };
 
     const updateState = value => {
         setState(value);
@@ -93,15 +92,14 @@ function App() {
         return <Loader/>
     }
 
-
     return (
         <Container style={{backgroundImage: `url(${SunBackground})`}}>
             <Row>
                 <Col md={12}>
                     <div className="wrapper">
                         <div className="weekDay">
-                            <h1>{weekday}</h1>
-                            <h4>{day}</h4>
+                            <h1>{now.day.weekday}</h1>
+                            <h4>{now.day.day}</h4>
                         </div>
                         <div className='data'>
                             <p>{locality ? 'City' : 'Locality'}: {now.city}, {now.country}</p>
@@ -120,15 +118,14 @@ function App() {
                                     <p className='description'>{now.description}</p>
                                      <MinMax state={state.current[0]} temp={temp}/>
                                 </div>
-
                             </div>
                             <div className="future_data_wrapper">
                                 {
                                     // Object.keys(state.week).splice(1,4).map(function(key, index) {
                                     //  return <FutureWeather key={key} day={state.week[key]}></FutureWeather>
                                     // })
-                                    state.week.map(el => {
-                                        return <FutureWeather key={el.dt} day={el} temp={temp} lang={now.lang}/>
+                                    state.week.map((el, index) => {
+                                        return <FutureDay key={el.dt} day={el} temp={temp} now={now} index={index} />
                                     })
                                 }
 
