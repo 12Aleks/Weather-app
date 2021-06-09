@@ -1,34 +1,52 @@
 import React from 'react';
 import {Line} from "react-chartjs-2";
-const data = {
-    labels: ['1', '2', '3', '4', '5', '6'],
-    datasets: [
-        {
-            label: '# of Votes',
-            data: [12, 19, 3, 5, 2, 3],
-            fill: false,
-            backgroundColor: 'rgb(255, 99, 132)',
-            borderColor: 'rgba(255, 99, 132, 0.2)',
-        },
-    ],
-};
 
-const options = {
-    scales: {
-        yAxes: [
+const Future = ({selected}) => {
+    const data = {
+        labels: ['00:00', '03:00', '06:00', '09:00', '12:00', '15:00', '18:00', '21:00'],
+        datasets: [
             {
-                ticks: {
-                    beginAtZero: true,
-                },
+                label: '# of Votes',
+                data: [selected] ,
+                fill: true,
+                tension: true,
+                backgroundColor: 'rgba(26,70,183, 0.5)',
+                borderColor: 'rgba(26,70,183, 0.2)',
             },
         ],
-    },
-};
+    };
 
-const Future = () => {
+    const options = {
+        animation: false,
+        plugins: {
+            legend: {
+                display: false
+            },
+        },
+        xAxes: [{
+            ticks: { display: false },
+            gridLines: {
+                display: false,
+                drawBorder: false
+            }
+        }],
+        yAxes: [{
+            ticks: { display: false },
+            gridLines: {
+                display: false,
+                drawBorder: false
+            }
+        }],
+        layout: {
+            padding: {
+                top: 10,
+                bottom: 10
+            }
+        }
+    };
     return (
-        <div className='futureDay'>
-            <Line data={data} options={options} />
+        <div className='futureDay pt-2 pb-2'>
+            <Line data={data} options={options}/>
         </div>
     );
 };

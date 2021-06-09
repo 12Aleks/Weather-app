@@ -23,7 +23,7 @@ function App() {
     const [loading, setLoading] = useState(true);
     const [weekday, setWeekday] = useState('');
     const [day, setDay] = useState('');
-    const [futureWeek, setFutureWeek] = useState(null);
+    const [futureWeek, setFutureWeek] = useState([]);
 
 
     const getLocationsWeather = async (temp) => {
@@ -114,7 +114,7 @@ function App() {
                             <div className="midl">
                             <TempStandard temp={temp} handleClick={updateTemp}/>
                             {futureWeek ?
-                                  <Future />
+                                  <Future selected={futureWeek}/>
                                 : <Current now={now} temp={temp} state={state}/>
                             }
                             </div>
