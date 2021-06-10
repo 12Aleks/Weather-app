@@ -11,8 +11,8 @@ export function getLanguage() {
 export function weekWeather(rez, index) {
     let four =  rez.reduce((arr, el) => ((arr[el.dt_txt.split(' ')[0]] = arr[el.dt_txt.split(' ')[0]] || []).push(el), arr), {});
     let clip = Object.values(four).splice(1, 4);
-    console.log(clip[index].map(el => Math.ceil(el.main.temp)));
-    console.log(clip[index].map(el => el.weather[0].icon));
+    // console.log(clip[index].map(el => Math.ceil(el.main.temp)));
+    // console.log(clip[index].map(el => el.weather[0].icon));
 
     return clip[index].map(el => Math.ceil(el.main.temp))
 }

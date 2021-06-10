@@ -23,7 +23,7 @@ function App() {
     const [loading, setLoading] = useState(true);
     const [weekday, setWeekday] = useState('');
     const [day, setDay] = useState('');
-    const [futureWeek, setFutureWeek] = useState([]);
+    const [futureWeek, setFutureWeek] = useState(null);
 
 
     const getLocationsWeather = async (temp) => {

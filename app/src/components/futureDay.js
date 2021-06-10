@@ -6,35 +6,30 @@ import MinMax from "./minMax";
 
 const KEY = process.env.REACT_APP_KEY;
 
-const FutureDay = ({ day, temp, now, index, setFutureWeek}) => {
-    const [selectDay, setSelectDay] = useState(0);
+const FutureDay = ({day, temp, now, index, setFutureWeek}) => {
+    const [week, setWeek] = useState(0);
 
-
-    const {latitude, longitude, lang } = now;
+    const {latitude, longitude, lang} = now;
     const dayFuture = convert(lang, day.dt);
 
-
-    const getDay = async (selectDay) => {
-        if(selectDay){
-            const data = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&lang=${lang}&units=${temp}&appid=${KEY}`);
-            const rez = await data.json();
-            setFutureWeek({
-               rez: await weekWeather(rez.list, selectDay)
-            });
-        }
+    const getWeek = async () => {
+        const data = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&lang=${lang}&units=${temp}&appid=${KEY}`);
+        const rez = await data.json();
+        setWeek(rez);
     };
 
-
-    function allDay(index) {
-        setSelectDay(index)
+    const getDay = async(select) => {
+        setFutureWeek({
+            rez:  await weekWeather(week.list, select)
+        })
     }
 
     useEffect(() => {
-        getDay(selectDay)
-    }, [selectDay])
+        getWeek()
+    }, []);
 
     return (
-        <div style={{width: 25 + '%'}} className='day' onClick={() => allDay(index)}>
+        <div style={{width: 25 + '%'}} className='day' onClick={() => getDay(index)}>
             <p>{dayFuture}</p>
             <Image src={icons[`${day.weather[0].icon}`].default} alt="weather icon"/>
             <MinMax temp={temp} state={day}/>
