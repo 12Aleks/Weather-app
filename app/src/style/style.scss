@@ -90,17 +90,7 @@ p {
       cursor: pointer;
     }
 
-    .data {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-top: 2px solid $borderColor;
 
-      p {
-        letter-spacing: .6px;
-      }
-    }
 
     .main_wrapper {
       width: 100%;
@@ -113,10 +103,31 @@ p {
       }
 
       .main{
-        height: 255px;
+        height: 300px;
         width: 100%;
-        border-top: 2px solid $borderColor;
         position: relative;
+        .data {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          border-top: 2px solid $borderColor;
+          border-bottom: 2px solid $borderColor;
+          p {
+            letter-spacing: .6px;
+          }
+        }
+        .weather_icons{
+          width: 100%;
+          //border-top: 2px solid $borderColor;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          img{
+            height: auto;
+            width: 50px;
+          }
+        }
         .current_wrapper {
           width: 100%;
           .wind {
@@ -133,18 +144,20 @@ p {
             width: 200px;
             height: auto;
           }
-
-          h2.temp {
-            font: 300 90px/90px Lato, sans-serif;
-            margin: 45px auto 30px;
-            padding: 0 15px;
-            text-align: center;
-            color: #ffffff;
-            text-shadow: 0 0 1px black;
-
-            span {
-              font: 100 50px/50px Lato, sans-serif;
+          .temp_wrapper{
+            float: right;
+            width: 50%;
+            h2.temp {
+              font: 300 90px/90px Lato, sans-serif;
+              margin: 45px auto 30px;
+              padding: 0 15px;
+              text-align: center;
+              color: #ffffff;
               text-shadow: 0 0 1px black;
+              span {
+                font: 100 50px/50px Lato, sans-serif;
+                text-shadow: 0 0 1px black;
+              }
             }
           }
 
@@ -158,7 +171,6 @@ p {
 
       .future_wrapper {
         width: 100%;
-
         .day {
           display: flex;
           flex-direction: column;

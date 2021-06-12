@@ -101,23 +101,30 @@ function App() {
                             <h1>{today.day.weekday}</h1>
                             <h4>{today.day.day}</h4>
                         </div>
-                        <div className='data'>
-                            <p>{locality ? 'City' : 'Locality'}: {today.city}, {today.country}</p>
-                            <p>Sunrise: {today.sunrise}</p>
-                            <p>Sunset: {today.sunset}</p>
-                        </div>
                         <div className='main_wrapper'>
                             <div className="main">
-                                <TempStandard temp={temp} handleClick={updateTemp}/>
                                 { selectedDay ?
-                                    <Future selected={selectedDay}/> :
-                                    <Current today={today} futureDays={futureDays} temp={temp} />
+                                    <Future selected={selectedDay} temp={temp}/> :
+                                    <div>
+                                        <div className='data'>
+                                            <p>{locality ? 'City' : 'Locality'}: {today.city}, {today.country}</p>
+                                            <p>Sunrise: {today.sunrise}</p>
+                                            <p>Sunset: {today.sunset}</p>
+                                        </div>
+                                        <TempStandard temp={temp} handleClick={updateTemp} />
+                                        <Current today={today} futureDays={futureDays} temp={temp} />
+                                    </div>
                                 }
                             </div>
                             <div className="future_wrapper">
                                 {
                                     futureDays.week.map((el, index) => {
-                                        return <FutureDay key={el.dt} day={el} temp={temp} today={today} index={index} setSelected={updateSelected}/>
+                                        return <FutureDay key={el.dt}
+                                                          day={el}
+                                                          temp={temp}
+                                                          today={today}
+                                                          index={index}
+                                                          setSelected={updateSelected}/>
                                     })
                                 }
 

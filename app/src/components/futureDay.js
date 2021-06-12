@@ -12,7 +12,7 @@ const FutureDay = ({day, temp, today, index,  setSelected}) => {
     const {latitude, longitude, lang} = today;
     const dayFuture = convert(lang, day.dt);
 
-    const getWeek = async () => {
+    const getWeek = async (temp) => {
         const data = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&lang=${lang}&units=${temp}&appid=${KEY}`);
         const rez = await data.json();
         setWeek(rez);
@@ -25,8 +25,8 @@ const FutureDay = ({day, temp, today, index,  setSelected}) => {
     }
 
     useEffect(() => {
-        getWeek()
-    }, []);
+        getWeek(temp)
+    }, [temp]);
 
     return (
         <div style={{width: 25 + '%'}} className='day' onClick={() => getDay(index)}>
