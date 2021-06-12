@@ -2,13 +2,13 @@ import React, { useState} from 'react';
 import {Form, Button} from "react-bootstrap";
 import {convert} from "../location";
 
-const KEY = process.env.REACT_APP_KEY
+const KEY = process.env.REACT_APP_KEY;
 
 const Forms = ({temp, setState, setCity, setLoading}) => {
     const [value, setValue] = useState('');
 
     const getCityWeather = async (value, temp) => {
-        setLoading(true)
+
         try {
             if (value) {
                 const data = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${value}&units=${temp}&appid=${KEY}`)
@@ -25,28 +25,27 @@ const Forms = ({temp, setState, setCity, setLoading}) => {
                     icon: rez.weather[0].icon,
                     sunrise: convert(rez.sys.sunrise),
                     sunset: convert(rez.sys.sunset)
-                })
-                console.log(rez)
+                });
                 setCity('')
             }
 
         } catch (e) {
             console.log('Error', e)
         }
-    }
+    };
 
     function updateValue(e){
-        e.preventDefault()
+        e.preventDefault();
         setValue(e.target.value)
     }
 
     function submitForm(){
-        getCityWeather(value, temp)
+        getCityWeather(value, temp);
         setValue('')
     }
 
     return (
-        <div className='content'>
+        <div className='form'>
             <Form.Control
                 type="text"
                 value={value}

@@ -1,9 +1,9 @@
 import React from 'react';
 
-const Wind = ({deg}) => {
+const Wind = ({speed}) => {
     return (
         <div className='wind'>
-            <p>Wind:  <span style={{transform: `rotateZ(${deg}deg)`, position: 'absolute'}}>&#129041;</span></p>
+            <p>Wind speed: {speed} <span> m/s </span></p>
         </div>
     );
 };

@@ -86,6 +86,9 @@ p {
     &:hover {
       box-shadow: 0 0 10px rgba($onix, 0.4);
     }
+    .weekDay{
+      cursor: pointer;
+    }
 
     .data {
       width: 100%;
@@ -99,31 +102,28 @@ p {
       }
     }
 
-    .data_wrapper {
+    .main_wrapper {
       width: 100%;
       position: relative;
 
-      .current_data_wrapper, .future_data_wrapper, .current_data_wrapper .min_max {
+      .current_wrapper, .future_wrapper, .current_wrapper .min_max {
         display: flex;
         justify-content: center;
         align-items: center;
       }
 
-      .midl {
+      .main{
         height: 255px;
         width: 100%;
         border-top: 2px solid $borderColor;
         position: relative;
-        .current_data_wrapper {
+        .current_wrapper {
           width: 100%;
           .wind {
             position: relative;
-            height: 40px;
             width: 100%;
-
-            span {
-              font-size: 30px;
-              color: #666;
+            p{
+              float: left;
             }
           }
 
@@ -136,7 +136,7 @@ p {
 
           h2.temp {
             font: 300 90px/90px Lato, sans-serif;
-            margin: 15px auto;
+            margin: 45px auto 30px;
             padding: 0 15px;
             text-align: center;
             color: #ffffff;
@@ -156,7 +156,7 @@ p {
         }
       }
 
-      .future_data_wrapper {
+      .future_wrapper {
         width: 100%;
 
         .day {
@@ -199,11 +199,10 @@ p {
       }
     }
 
-    .content {
+    .form {
       margin-top: 30px;
       height: 30%;
       position: relative;
-
 
       .form-control {
         background: transparent;
@@ -277,7 +276,6 @@ p {
         }
       }
 
-      // wave effect
       &:after {
         background: #fff;
         border-radius: 50%;
@@ -285,7 +283,6 @@ p {
         height: 200px;
         left: -8px;
         position: absolute;
-
         top: -10px;
         transform: rotate(-5deg);
         width: 30px;
@@ -308,8 +305,6 @@ p {
       }
     }
   }
-
-
 }
 
 //

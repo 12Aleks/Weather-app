@@ -6,10 +6,10 @@ import MinMax from "./minMax";
 
 const KEY = process.env.REACT_APP_KEY;
 
-const FutureDay = ({day, temp, now, index, setFutureWeek}) => {
+const FutureDay = ({day, temp, today, index,  setSelected}) => {
     const [week, setWeek] = useState(0);
 
-    const {latitude, longitude, lang} = now;
+    const {latitude, longitude, lang} = today;
     const dayFuture = convert(lang, day.dt);
 
     const getWeek = async () => {
@@ -19,7 +19,7 @@ const FutureDay = ({day, temp, now, index, setFutureWeek}) => {
     };
 
     const getDay = async(select) => {
-        setFutureWeek({
+        setSelected({
             rez:  await weekWeather(week.list, select)
         })
     }
