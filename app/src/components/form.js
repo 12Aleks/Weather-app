@@ -1,30 +1,33 @@
-import React, { useState} from 'react';
+import React, {useState} from 'react';
 import {Form, Button} from "react-bootstrap";
 import {convert} from "../location";
 
 const KEY = process.env.REACT_APP_KEY;
 
-const Forms = ({temp, setState, setCity, setLoading}) => {
+const Forms = ({temp, setState, setCity, lang}) => {
     const [value, setValue] = useState('');
 
     const getCityWeather = async (value, temp) => {
 
         try {
             if (value) {
-                const data = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${value}&units=${temp}&appid=${KEY}`)
-                let rez = await data.json();
+                let apiUrl1 = `https://api.openweathermap.org/data/2.5/weather?q=${value}&lang=${lang}&units=${temp}&appid=${KEY}`;
+                let apiUrl2 = `https://api.openweathermap.org/data/2.5/weather?q=${value}&lang=${lang}&units=${temp}&appid=${KEY}`;
+                let apiUrl3 = `https://api.openweathermap.org/data/2.5/weather?q=${value}&lang=${lang}&units=${temp}&appid=${KEY}`;
+                const [currentData, futureData, rez] = await Promise.all([
+                    fetch(apiUrl1).then(response => response.json()),
+                    fetch(apiUrl2).then(response => response.json()),
+                    fetch(apiUrl3).then(response => response.json()),
+                ]);
                 setState({
-                    city: rez.name,
-                    country: rez.sys.country,
-                    temp: rez.main.temp,
-                    wind: rez.wind.speed.value,
-                    windUnit: rez.wind.speed.unit,
-                    windName: rez.wind.speed.name,
-                    windDirection: rez.wind.direction,
-                    clouds: rez.clouds.value,
-                    icon: rez.weather[0].icon,
-                    sunrise: convert(rez.sys.sunrise),
-                    sunset: convert(rez.sys.sunset)
+                    city: currentData.name,
+                    country: currentData.sys.country,
+                    curTemp: Math.ceil(currentData.main.temp),
+                    icon: currentData.weather[0].icon,
+                    description: currentData.weather[0].description,
+                    sunrise: await convert(currentData.sys.country, 0, currentData.sys.sunrise),
+                    sunset: await convert(currentData.sys.country, 0, currentData.sys.sunset),
+                    wind: currentData.wind,
                 });
                 setCity('')
             }
@@ -34,12 +37,12 @@ const Forms = ({temp, setState, setCity, setLoading}) => {
         }
     };
 
-    function updateValue(e){
+    function updateValue(e) {
         e.preventDefault();
         setValue(e.target.value)
     }
 
-    function submitForm(){
+    function submitForm() {
         getCityWeather(value, temp);
         setValue('')
     }
@@ -52,11 +55,10 @@ const Forms = ({temp, setState, setCity, setLoading}) => {
                 placeholder="Enter city"
                 onChange={updateValue}
             />
-            <div className="button_wrapper">
-                <Button variant="primary" onClick={() => submitForm()}>
-                    Submit
-                </Button>
-            </div>
+
+            <Button variant="primary" onClick={() => submitForm()}>
+                Submit
+            </Button>
         </div>
     );
 };

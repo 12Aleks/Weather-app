@@ -24,13 +24,14 @@ const Future = ({selected, temp}) => {
                     radius: 1,
                     backgroundColor: gradient,
                     borderSize: .5,
-                    borderColor: 'rgba(26,70,183, 0.1)',
+                    borderColor: 'rgba(12,22,98, 0.1)',
                 },
             ]
         })
 
         setOptions({
             animation: false,
+            responsive: true,
             elements: {
                 line: {
                     tension: .4
@@ -50,7 +51,7 @@ const Future = ({selected, temp}) => {
             layout: {
                 padding: {
                     top: '15',
-                    bottom: '25'
+                    bottom: '25',
                 }
             },
 
@@ -84,8 +85,8 @@ const Future = ({selected, temp}) => {
         let ctx = document.getElementById('canvas').getContext("2d")
         let gradient = ctx.createLinearGradient(0, 0, 0, 400);
         gradient.addColorStop(0, 'rgba(26,70,183, .2)');
-        gradient.addColorStop(.6, 'rgba(26,70,183,.6)');
-        gradient.addColorStop(1, 'rgba(126,70,183, 1)');
+        gradient.addColorStop(.6, 'rgba(12,22,98,.6)');
+        gradient.addColorStop(1, 'rgba(12,22,98, 1)');
         chart(temps, gradient, time)
     }, [temps]);
 

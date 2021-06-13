@@ -8,7 +8,13 @@ const Current = ({today, temp, futureDays}) => {
     const{icon, wind, curTemp, description } = today;
     return (
         <div className="current_wrapper">
-            <Image src={icons[`${icon}`].default} alt="weather icon"/>
+           <div className='img_wrapper'>
+               <Image src={icons[`${icon}`].default} alt="weather icon"/>
+               <div className='d-flex align-items-center justify-content-center'>
+                   <p>Sunrise: {today.sunrise}</p>
+                   <p>Sunset: {today.sunset}</p>
+               </div>
+           </div>
             <div className='temp_wrapper'>
                 <Wind speed={wind.speed}/>
                 <h2 className="temp">{curTemp}

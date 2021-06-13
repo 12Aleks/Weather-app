@@ -1,16 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {Col, Container, Image, Row} from "react-bootstrap";
+import {Button, Col, Container, Image, Row} from "react-bootstrap";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Current from "./components/current";
 import Future from "./components/future";
 import Loader from "./components/spiner";
-import FutureDay  from "./components/futureDay";
+import FutureDay from "./components/futureDay";
 import TempStandard from "./components/tempStandard";
+import Forms from "./components/form";
 import SunBackground from './assets/Images/sun.jpg'
-// import Forms from "./components/form";
-
 import {convert, getLanguage, getLocation} from "./location";
-import icons from "./icons";
-import MinMax from "./components/minMax";
 
 const KEY = process.env.REACT_APP_KEY;
 
@@ -47,15 +45,15 @@ function App() {
                     curTemp: Math.ceil(currentData.main.temp),
                     icon: currentData.weather[0].icon,
                     description: currentData.weather[0].description,
-                    sunrise: await convert(currentData.sys.country, 0 ,currentData.sys.sunrise),
-                    sunset: await convert(currentData.sys.country,0, currentData.sys.sunset),
+                    sunrise: await convert(currentData.sys.country, 0, currentData.sys.sunrise),
+                    sunset: await convert(currentData.sys.country, 0, currentData.sys.sunset),
                     wind: currentData.wind,
                     latitude: latitude,
                     longitude: longitude,
                 });
 
                 setDay({
-                    data:  await convert(lang),
+                    data: await convert(lang),
                 })
 
                 setFutureDays({
@@ -72,7 +70,7 @@ function App() {
     };
 
     const updateTemp = () => {
-        temp === 'metric'? setTemp('imperial'): setTemp('metric');
+        temp === 'metric' ? setTemp('imperial') : setTemp('metric');
     };
 
     useEffect(() => {
@@ -93,61 +91,67 @@ function App() {
     };
 
 
-
     const updateSelected = (val) => {
         setSelectedDay(val);
         setDay({
-            data:  {
+            data: {
                 weekday: val.dayDate.weekday,
                 day: val.dayDate.long
             },
         })
     }
 
-    if (loading) {
-        return <Loader/>
-    }
-
     return (
-        <Container style={{backgroundImage: `url(${SunBackground})`}}>
+        <Container fluid style={{backgroundImage: `url(${SunBackground})`}} className={selectedDay && 'selected'}>
             <Row>
                 <Col md={12}>
-                    <div className="wrapper">
-                        <div className="weekDay" onClick={() => getLocationsWeather('metric') }>
-                            <h1>{day.data.weekday}</h1>
-                            <h4>{day.data.day}</h4>
-                        </div>
-                        <div className='main_wrapper'>
-                            <div className="main">
-                                { selectedDay ?
-                                    <Future selected={selectedDay} temp={temp}/> :
-                                    <div>
-                                        <div className='data'>
-                                            <p>{locality ? 'City' : 'Locality'}: {today.city}, {today.country}</p>
-                                            <p>Sunrise: {today.sunrise}</p>
-                                            <p>Sunset: {today.sunset}</p>
+                    {
+                        loading ? <Loader/> :
+                            <div className="wrapper">
+                                <div className="weekDay">
+                                    <h1>{day.data.weekday}</h1>
+                                    <h4>{day.data.day}</h4>
+                                    {
+                                        selectedDay &&
+                                        <div className='data' onClick={() => getLocationsWeather('metric')}>
+                                            <p>See more current weather</p>
                                         </div>
-                                        <TempStandard temp={temp} handleClick={updateTemp} />
-                                        <Current today={today} futureDays={futureDays} temp={temp} />
+                                    }
+                                </div>
+                                <div className='main_wrapper'>
+                                    <div className="main">
+                                        {selectedDay ?
+                                            <Future selected={selectedDay} temp={temp}/> :
+                                            <div>
+                                                <div className='data'>
+                                                    <p>{locality ? 'City' : 'Locality'}: {today.city}, {today.country}</p>
+                                                    <Forms temp={temp}
+                                                           setState={futureDays}
+                                                           lang={today.lang}
+                                                           setCity={updateCity}
+                                                           />
+                                                </div>
+                                                <TempStandard temp={temp} handleClick={updateTemp}/>
+                                                <Current today={today} futureDays={futureDays} temp={temp}/>
+                                            </div>
+                                        }
                                     </div>
-                                }
-                            </div>
-                            <div className="future_wrapper">
-                                {
-                                    futureDays.week.map((el, index) => {
-                                        return <FutureDay key={el.dt}
-                                                          day={el}
-                                                          week={week}
-                                                          temp={temp}
-                                                          today={today}
-                                                          index={index}
-                                                          setSelected={updateSelected}/>
-                                    })
-                                }
-                                {/*<Forms temp={temp} setState={futureDays} setCity={updateCity} setLoading={() => setLoading(true)}/>*/}
-                            </div>
-                        </div>
-                    </div>
+                                    <div className="future_wrapper">
+                                        {
+                                            futureDays.week.map((el, index) => {
+                                                return <FutureDay key={el.dt}
+                                                                  day={el}
+                                                                  week={week}
+                                                                  temp={temp}
+                                                                  today={today}
+                                                                  index={index}
+                                                                  setSelected={updateSelected}/>
+                                            })
+                                        }
+                                        {/*<Forms temp={temp} setState={futureDays} setCity={updateCity} setLoading={() => setLoading(true)}/>*/}
+                                    </div>
+                                </div>
+                            </div>}
                 </Col>
             </Row>
         </Container>
