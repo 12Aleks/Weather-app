@@ -77,7 +77,7 @@ p {
     padding: 20px;
     background: #d6d6d682;
     box-shadow: 0 0 35px rgba($onix, 0.4);
-    width: 550px;
+    width: 630px;
     border-radius: 20px;
     overflow: hidden;
     position: relative;
@@ -86,10 +86,10 @@ p {
     &:hover {
       box-shadow: 0 0 10px rgba($onix, 0.4);
     }
+
     .weekDay{
       cursor: pointer;
     }
-
 
 
     .main_wrapper {
@@ -103,7 +103,7 @@ p {
       }
 
       .main{
-        height: 300px;
+        height: 330px;
         width: 100%;
         position: relative;
         .data {
@@ -179,17 +179,21 @@ p {
           background: rgb(214 214 214 / 24%);
           border: 1px solid $borderColor;
           border-radius: 10%;
-          padding: 10px;
+          padding:11px 10px;
           transition: all .7s;
-
+          max-height: 195px;
+          .today{
+            height: 34px;
+            padding: 10px 0;
+          }
           &:not(&:last-child) {
             margin-right: 2px;
             border-right: 1px solid $borderColor;
           }
 
           p {
-            font: 500 20px/20px Lato, sans-serif;
-            margin: 10px auto;
+            font: 500 15px/15px Lato, sans-serif;
+            margin: 5px 0;
           }
 
           img {
@@ -199,7 +203,8 @@ p {
 
           .min_max {
             p {
-              font: 500 16px/16px Lato, sans-serif;
+              font: 500 15px/16px Lato, sans-serif;
+              margin: 8px 0;
             }
           }
 
@@ -207,6 +212,10 @@ p {
             background: rgb(150 150 150 / 44%);
             transition: all .7s;
           }
+        }
+        .day.active{
+          background: rgb(150 150 150 / 44%);
+          transition: all .7s;
         }
       }
     }
@@ -332,3 +341,4 @@ p {
 //    transform: rotate(360deg);
 //  }
 //}
+

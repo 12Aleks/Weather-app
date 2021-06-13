@@ -9,6 +9,8 @@ import SunBackground from './assets/Images/sun.jpg'
 // import Forms from "./components/form";
 
 import {convert, getLanguage, getLocation} from "./location";
+import icons from "./icons";
+import MinMax from "./components/minMax";
 
 const KEY = process.env.REACT_APP_KEY;
 
@@ -20,6 +22,8 @@ function App() {
     const [locality, setLocality] = useState(false);
     const [loading, setLoading] = useState(true);
     const [selectedDay, setSelectedDay] = useState(null);
+    const [week, setWeek] = useState(null);
+    const [day, setDay] = useState(null);
 
     const getLocationsWeather = async (temp) => {
         try {
@@ -29,9 +33,11 @@ function App() {
             if (latitude && longitude) {
                 let apiUrl1 = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&lang=${lang}&units=${temp}&appid=${KEY}`;
                 let apiUrl2 = `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&lang=${lang}&units=${temp}&appid=${KEY}`;
-                const [currentData, futureData] = await Promise.all([
+                let apiUrl3 = `https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&lang=${lang}&units=${temp}&appid=${KEY}`;
+                const [currentData, futureData, rez] = await Promise.all([
                     fetch(apiUrl1).then(response => response.json()),
                     fetch(apiUrl2).then(response => response.json()),
+                    fetch(apiUrl3).then(response => response.json()),
                 ]);
 
                 setToday({
@@ -46,13 +52,17 @@ function App() {
                     wind: currentData.wind,
                     latitude: latitude,
                     longitude: longitude,
-                    day:  await convert(lang),
                 });
 
+                setDay({
+                    data:  await convert(lang),
+                })
+
                 setFutureDays({
-                    week: futureData.daily.slice(1, 5),
+                    week: futureData.daily.slice(0, 5),
                     current: futureData.daily.slice(0, 1),
                 });
+                setWeek(rez)
                 setSelectedDay(null);
                 setLoading(false);
             }
@@ -61,7 +71,6 @@ function App() {
         }
     };
 
-
     const updateTemp = () => {
         temp === 'metric'? setTemp('imperial'): setTemp('metric');
     };
@@ -69,6 +78,7 @@ function App() {
     useEffect(() => {
         getLocationsWeather(temp)
     }, [temp]);
+
 
     const updateCity = value => {
         if (value.length > 2) {
@@ -85,7 +95,13 @@ function App() {
 
 
     const updateSelected = (val) => {
-        setSelectedDay(val)
+        setSelectedDay(val);
+        setDay({
+            data:  {
+                weekday: val.dayDate.weekday,
+                day: val.dayDate.long
+            },
+        })
     }
 
     if (loading) {
@@ -98,8 +114,8 @@ function App() {
                 <Col md={12}>
                     <div className="wrapper">
                         <div className="weekDay" onClick={() => getLocationsWeather('metric') }>
-                            <h1>{today.day.weekday}</h1>
-                            <h4>{today.day.day}</h4>
+                            <h1>{day.data.weekday}</h1>
+                            <h4>{day.data.day}</h4>
                         </div>
                         <div className='main_wrapper'>
                             <div className="main">
@@ -121,14 +137,13 @@ function App() {
                                     futureDays.week.map((el, index) => {
                                         return <FutureDay key={el.dt}
                                                           day={el}
+                                                          week={week}
                                                           temp={temp}
                                                           today={today}
                                                           index={index}
                                                           setSelected={updateSelected}/>
                                     })
                                 }
-
-
                                 {/*<Forms temp={temp} setState={futureDays} setCity={updateCity} setLoading={() => setLoading(true)}/>*/}
                             </div>
                         </div>

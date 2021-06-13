@@ -10,11 +10,11 @@ Chart.register(ChartDataLabels);
 const Future = ({selected, temp}) => {
     const [data, setData] = useState(null);
     const [options, setOptions] = useState(null);
-    const {temps, images} = selected.rez
+    const {temps, images, time} = selected.rez
 
-    const chart = (temps, gradient) => {
+    const chart = (temps, gradient, time) => {
         setData({
-            labels: ['00:00', '03:00', '06:00', '09:00', '12:00', '15:00', '18:00', '21:00'],
+            labels: time,
             datasets: [
                 {
                     label: '# of Votes',
@@ -37,33 +37,20 @@ const Future = ({selected, temp}) => {
                 }
             },
             scales: {
-                yAxes: [{
-                    gridLines: {
-                        drawOnChartArea: false,
-                        drawBorder: false,
-                        tickMarkLength: 0,
-                    },
-                    ticks: {
-
-                        beginAtZero: true,
+                y: {
+                    beginAtZero: true,
+                    display: false,
+                },
+                x: {
+                    grid: {
                         display: false,
                     }
-                }],
-                xAxes: [{
-                    gridLines: {
-                        drawOnChartArea: false,
-                        drawBorder: false,
-                        tickMarkLength: 0,
-                    },
-                    ticks: {
-                        fontColor: '#000000',
-                    }
-                }]
+                }
             },
             layout: {
                 padding: {
-                    top: 10,
-                    bottom: 10
+                    top: '15',
+                    bottom: '25'
                 }
             },
 
@@ -73,18 +60,18 @@ const Future = ({selected, temp}) => {
                 },
                 datalabels: {
                     color: '#343E3D',
-                    fontWeight: 300,
                     formatter: (val) => {
                         return val + ` ${temp !== 'metric' ? `\u2109` : '\u2103'}`
                     },
                     labels: {
                         title: {
                             font: {
-                                weight: 'bold'
+                                weight: '500',
+                                size: '12'
                             }
                         },
                         value: {
-                            color: 'green'
+                            color: 'gray',
                         }
                     }
                 },
@@ -98,8 +85,8 @@ const Future = ({selected, temp}) => {
         let gradient = ctx.createLinearGradient(0, 0, 0, 400);
         gradient.addColorStop(0, 'rgba(26,70,183, .2)');
         gradient.addColorStop(.6, 'rgba(26,70,183,.6)');
-        gradient.addColorStop(1, 'rgba(26,70,183, 1)');
-        chart(temps, gradient)
+        gradient.addColorStop(1, 'rgba(126,70,183, 1)');
+        chart(temps, gradient, time)
     }, [temps]);
 
     return (

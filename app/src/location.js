@@ -10,10 +10,11 @@ export function getLanguage() {
 
 export function weekWeather(rez, index) {
     let four =  rez.reduce((arr, el) => ((arr[el.dt_txt.split(' ')[0]] = arr[el.dt_txt.split(' ')[0]] || []).push(el), arr), {});
-    let clip = Object.values(four).splice(1, 4);
+    let clip = Object.values(four).splice(0, 5);
+    let time =  clip[index].map(el => el.dt_txt.split(' ')[1].match(/^\d\d[-:]\d\d/));
     let temps = clip[index].map(el => Math.ceil(el.main.temp));
     let images = clip[index].map(el => el.weather[0].icon);
-    return {temps, images}
+    return {temps, images, index, time}
 }
 
 export function convert(locales, milliseconds, utcSeconds) {
@@ -33,7 +34,9 @@ export function convert(locales, milliseconds, utcSeconds) {
 
     if (milliseconds) {
         let date = new Date(milliseconds * 1000);
-        return (new Intl.DateTimeFormat(locales, options.day).format(date));
+        let weekday = (new Intl.DateTimeFormat(locales, options.weekday).format(date));
+        let long =  (new Intl.DateTimeFormat(locales, options.day).format(date));
+        return {long, weekday}
     } else if (utcSeconds) {
         let date = new Date(utcSeconds * 1000);
         return (new Intl.DateTimeFormat(locales, options.hour).format(date));
