@@ -86,7 +86,7 @@ p {
     align-items: center;
     flex-direction: column;
     padding: 15px;
-    background: #d6d6d682;
+    background: #b7b7b1ba;
     box-shadow: 0 0 35px rgba($onix, 0.4);
     width: 650px;
     border-radius: 20px;
@@ -104,23 +104,24 @@ p {
       .data {
         width: 100%;
         display: flex;
-        justify-content: center;
+        justify-content: space-around;
         align-items: center;
         border-top: 2px solid $borderColor;
         border-bottom: 2px solid $borderColor;
-        transition: all .7s;
         margin-bottom: 5px;
-        cursor: pointer;
 
         p {
           letter-spacing: .6px;
           margin: 10px 0;
         }
-
-        &:hover {
-          transition: all .7s;
-          background-color: $borderColor;
+        p:nth-last-child(1){
+          cursor: pointer;
+          &:hover {
+            transition: all .7s;
+            color: $borderColor;
+          }
         }
+
       }
 
       //button{

@@ -1,7 +1,20 @@
-export function getLocation() {
-    return new Promise((resolve, reject) => {
-        navigator.geolocation.getCurrentPosition(resolve, reject)
-    })
+const KEY = process.env.REACT_APP_KEY;
+export async function getLocation(value) {
+    console.log(value)
+    if(value){
+        let position = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${value}&appid=${KEY}`);
+        let letLong = await position.json();
+        console.log(letLong)
+        let coords = {
+                latitude: letLong.coord.lat,
+                longitude: letLong.coord.lon
+            }
+        return {coords}
+    }else{
+        return new Promise((resolve, reject) => {
+            navigator.geolocation.getCurrentPosition(resolve, reject)
+        })
+    }
 }
 
 export function getLanguage() {
@@ -47,6 +60,5 @@ export function convert(locales, milliseconds, utcSeconds) {
         return {weekday, day}
     }
 }
-
 
 

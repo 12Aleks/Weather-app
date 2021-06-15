@@ -17,7 +17,7 @@ const FutureDay = ({day, temp, today, index, week, setSelected}) => {
     return (
         <div style={{width: 20 + '%'}} className='day' onClick={() => getDay(index, long, weekday)}>
             {index ? <div><p>{weekday}</p>
-                <p>{long}</p></div>:
+                    <p>{long}</p></div>:
                 <div><p className='today'>Today</p></div>
             }
             <Image src={icons[`${day.weather[0].icon}`].default} alt="weather icon"/>

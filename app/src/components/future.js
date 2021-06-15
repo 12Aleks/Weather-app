@@ -95,7 +95,7 @@ const Future = ({selected, temp}) => {
             <div className="weather_icons">
                 {
                     images.map((img, index) => {
-                       return <Image src={icons[`${img}`].default} alt="weather icon" key={index}/>
+                        return <Image src={icons[`${img}`].default} alt="weather icon" key={index}/>
 
                     })
                 }
