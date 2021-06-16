@@ -10,6 +10,7 @@ import Loader from "./components/spiner";
 import SunBackground from './assets/Images/sun.jpg';
 
 import {convert, getLanguage, getLocation} from "./location";
+import Background from "./components/background";
 
 const KEY = process.env.REACT_APP_KEY;
 
@@ -90,7 +91,8 @@ function App() {
     };
 
     return (
-        <Container fluid style={{backgroundImage: `url(${SunBackground})`}} className={selectedDay && 'selected'}>
+        <Container fluid className={selectedDay && 'selected'} style={{}}>
+            <Background/>
             <Row>
                 <Col md={12}>
                     {loading ? <Loader/> :
