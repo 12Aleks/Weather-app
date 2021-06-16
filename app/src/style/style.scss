@@ -1,14 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700&display=swap');
-@import './puls';
 @import './switch';
-@import "./spiner";
+//@import "./spiner";
 
 $lightGrey: whitesmoke;
 $onix: #343E3D;
 $borderColor: #7575757a;
-//$min: #7171dabf;
-//$max: #dc8484bf;
-
 
 * {
   box-sizing: border-box;
@@ -51,8 +47,10 @@ p {
 }
 
 .container-fluid.selected {
-  .wrapper .main_wrapper .main {
-    height: 215px;
+  .wrapper {
+    .main_wrapper .main {
+      height: 215px;
+    }
   }
 }
 
@@ -104,12 +102,11 @@ p {
       .data {
         width: 100%;
         display: flex;
-        justify-content: space-around;
+        justify-content: space-between;
         align-items: center;
         border-top: 2px solid $borderColor;
         border-bottom: 2px solid $borderColor;
         margin-bottom: 5px;
-
         p {
           letter-spacing: .6px;
           margin: 10px 0;
@@ -121,29 +118,7 @@ p {
             color: $borderColor;
           }
         }
-
       }
-
-      //button{
-      //  margin: 0 auto 10px;
-      //  display: block;
-      //  width: 100%;
-      //  text-transform: uppercase;
-      //  border-top: 2px solid $borderColor;
-      //  border-bottom: 2px solid $borderColor;
-      //  border-left: 0;
-      //  border-right: 0;
-      //  span{
-      //    letter-spacing: 1px;
-      //    transform: scale(0.8, 1);
-      //  }
-      //  &:hover{
-      //    background-color: $borderColor;
-      //    span{
-      //      color: #ffffff;
-      //    }
-      //  }
-      //}
     }
 
 
@@ -183,7 +158,6 @@ p {
 
         .weather_icons {
           width: 100%;
-          //border-top: 2px solid $borderColor;
           display: flex;
           justify-content: space-between;
           align-items: center;
@@ -226,12 +200,12 @@ p {
               margin: 45px auto 15px;
               padding: 0 15px;
               text-align: center;
-              color: #ffffff;
-              text-shadow: 0 0 1px black;
+              color: #fff;
+              text-shadow: 0 0 1px #000;
 
               span {
                 font: 100 50px/50px Lato, sans-serif;
-                text-shadow: 0 0 1px black;
+                text-shadow: 0 0 1px #000;
               }
             }
 
@@ -244,13 +218,6 @@ p {
             p {
               margin-bottom: 15px;
             }
-
-            //p.min{
-            //  color: $min;
-            //}
-            //p.max{
-            //  color: $max;
-            //}
           }
         }
       }
@@ -276,6 +243,10 @@ p {
             padding: 10px 0;
           }
 
+          p:nth-child(2){
+            cursor: pointer;
+          }
+
           &:not(&:last-child) {
             margin-right: 3px;
             border-right: 1px solid $borderColor;
@@ -296,15 +267,7 @@ p {
               font: 500 15px/16px Lato, sans-serif;
               margin: 8px 0;
             }
-
-            //p.min{
-            //  color: $min;
-            //}
-            //p.max{
-            //  color: $max;
-            //}
           }
-
           &:hover {
             background: rgb(150 150 150 / 44%);
             transition: all .7s;
@@ -327,7 +290,7 @@ p {
       .form-control {
         background: transparent;
         border: 1px solid $borderColor;
-        color: #343E3D;
+        color: #fff;
         font-size: 16px;
         outline: none;
         text-align: center;
@@ -336,7 +299,7 @@ p {
         height: 32px;
 
         &:focus {
-          width: 220px;
+          width: 208px;
           box-shadow: none;
         }
       }
@@ -436,18 +399,4 @@ p {
   }
 }
 
-
-//
-//input[type="search"]::-webkit-search-decoration, input[type="search"]::-webkit-search-cancel-button, input[type="search"]::-webkit-search-results-button, input[type="search"]::-webkit-search-results-decoration {
-//  display: none;
-//}
-//
-//@keyframes spin {
-//  from {
-//    transform: rotate(0deg);
-//  }
-//  to {
-//    transform: rotate(360deg);
-//  }
-//}
 

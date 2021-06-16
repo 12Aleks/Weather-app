@@ -1,13 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Col, Container, Image, Row} from "react-bootstrap";
+import {Container, Row, Col,} from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Current from "./components/current";
 import Future from "./components/future";
-import Loader from "./components/spiner";
 import FutureDay from "./components/futureDay";
 import TempStandard from "./components/tempStandard";
 import Forms from "./components/form";
-import SunBackground from './assets/Images/sun.jpg'
+import Loader from "./components/spiner";
+import SunBackground from './assets/Images/sun.jpg';
+
 import {convert, getLanguage, getLocation} from "./location";
 
 const KEY = process.env.REACT_APP_KEY;
@@ -17,7 +18,6 @@ function App() {
     const [futureDays, setFutureDays] = useState(null);
     const [temp, setTemp] = useState('metric');
     const [city, setCity] = useState('');
-    const [locality, setLocality] = useState(false);
     const [loading, setLoading] = useState(true);
     const [selectedDay, setSelectedDay] = useState(null);
     const [week, setWeek] = useState(null);
@@ -36,8 +36,6 @@ function App() {
                     fetch(`https://api.openweathermap.org/data/2.5/onecall?${apiUrl}`).then(response => response.json()),
                     fetch(`https://api.openweathermap.org/data/2.5/forecast?${apiUrl}`).then(response => response.json()),
                 ]);
-
-                console.log(currentData);
 
                 setToday({
                     city: currentData.name,
@@ -61,6 +59,7 @@ function App() {
                     week: futureData.daily.slice(0, 5),
                     current: futureData.daily.slice(0, 1),
                 });
+
                 setWeek(rez);
                 setSelectedDay(null);
                 setLoading(false);
@@ -75,11 +74,8 @@ function App() {
     };
 
     useEffect(() => {
-        if (!city) {
-            getLocationsWeather(temp, 0)
-        } else {
-            getLocationsWeather(temp, city)
-        }
+        if (!city) return getLocationsWeather(temp);
+        return getLocationsWeather(temp, city);
     }, [temp, city]);
 
 
@@ -104,9 +100,9 @@ function App() {
                                 <h4>{day.data.day}</h4>
                                 {
                                     selectedDay &&
-
                                     <div className='data'>
-                                        <p>{locality ? 'City' : 'Locality'}: {today.city}, {today.country}</p>
+                                        <p>{!city ? 'Locality': 'City'}: {today.city}, {today.country}</p>
+                                        { city && <p onClick={() =>  { getLocationsWeather('metric'); setCity('')}}>Current location</p>}
                                         <p onClick={() => setSelectedDay(null)}>See more current weather</p>
                                     </div>
                                 }
@@ -117,7 +113,8 @@ function App() {
                                         <Future selected={selectedDay} temp={temp}/> :
                                         <div>
                                             <div className='data'>
-                                                <p>{locality ? 'City' : 'Locality'}: {today.city}, {today.country}</p>
+                                                <p>{!city ? 'Locality': 'City'}: {today.city}, {today.country}</p>
+                                                { city && <p onClick={() => { getLocationsWeather('metric'); setCity('')}}>Current location</p>}
                                                 <Forms setState={(value) => setCity(value)}/>
 
                                             </div>

@@ -1,5 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Form, Button} from "react-bootstrap";
+
 
 const Forms = ({setState}) => {
     const [value, setValue] = useState('');
@@ -9,7 +10,7 @@ const Forms = ({setState}) => {
         setValue(e.target.value)
     }
 
-    function  submitForm() {
+    function submitForm() {
         setState(value);
         setValue('')
     }
@@ -22,7 +23,6 @@ const Forms = ({setState}) => {
                 placeholder="Enter city"
                 onChange={updateValue}
             />
-
             <Button variant="primary" onClick={() => submitForm()}>
                 Submit
             </Button>
