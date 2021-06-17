@@ -27,32 +27,18 @@ export function weekWeather(rez, index) {
 }
 
 export function convert(locales, milliseconds, utcSeconds) {
-    let options = {
-        weekday: {
-            weekday: 'long',
-        },
-        day: {
-            day: '2-digit',
-            month: 'long'
-        },
-        hour: {
-            minute: 'numeric',
-            hour: 'numeric'
-        }
-    };
-
     if (milliseconds) {
         let date = new Date(milliseconds * 1000);
-        let weekday = (new Intl.DateTimeFormat(locales, options.weekday).format(date));
-        let long =  (new Intl.DateTimeFormat(locales, options.day).format(date));
+        let weekday = (new Intl.DateTimeFormat(locales,  {weekday: 'long'}).format(date));
+        let long =  (new Intl.DateTimeFormat(locales, { day: '2-digit', month: 'long'}).format(date));
         return {long, weekday}
     } else if (utcSeconds) {
         let date = new Date(utcSeconds * 1000);
-        return (new Intl.DateTimeFormat(locales, options.hour).format(date));
+        return (new Intl.DateTimeFormat(locales, { minute: 'numeric', hour: 'numeric'}).format(date));
     } else {
         let currentDate = new Date();
-        let weekday = (new Intl.DateTimeFormat(locales, options.weekday).format(currentDate));
-        let day = (new Intl.DateTimeFormat(locales, options.day).format(currentDate));
+        let weekday = (new Intl.DateTimeFormat(locales, {weekday: 'long'}).format(currentDate));
+        let day = (new Intl.DateTimeFormat(locales, { day: '2-digit', month: 'long'}).format(currentDate));
         return {weekday, day}
     }
 }

@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {Image} from "react-bootstrap";
 import icons from "../icons";
 import {convert, weekWeather} from "../location";
 import MinMax from "./minMax";
 
-const FutureDay = ({day, temp, today, index, week, setSelected}) => {
+const ListDays = ({day, temp, today, index, week, setSelected}) => {
     const {long, weekday} = convert(today.lang, day.dt);
 
     const getDay = async (select, long, weekday) => {
@@ -26,4 +26,4 @@ const FutureDay = ({day, temp, today, index, week, setSelected}) => {
     );
 };
 
-export default FutureDay;
+export default ListDays;

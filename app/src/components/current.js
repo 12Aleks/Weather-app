@@ -4,7 +4,7 @@ import icons from "../icons";
 import Wind from "./wind";
 import MinMax from "./minMax";
 
-const Current = ({today, temp, futureDays}) => {
+const Current = ({today, temp, listDays}) => {
     const{icon, wind, curTemp, description } = today;
     return (
         <div className="current_wrapper">
@@ -21,7 +21,7 @@ const Current = ({today, temp, futureDays}) => {
                     <span>{temp !== 'metric' ? '\u2109' : '\u2103'}</span>
                 </h2>
                 <p className='description'>{description}</p>
-                <MinMax state={futureDays.current[0]} temp={temp}/>
+                <MinMax state={listDays.current[0]} temp={temp}/>
             </div>
         </div>
     );

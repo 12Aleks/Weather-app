@@ -23,166 +23,169 @@
   width:150px;
   animation: ray_anim 120s linear infinite;
   -webkit-animation: ray_anim 120s linear infinite;
-}
-.ray {
-  background: -webkit-linear-gradient(to top, rgba(255,255,255,0) 0%, rgba(255, 255, 255, 0.8) 50%, rgba(255,255,255,0) 100%);
-  background: linear-gradient(to top, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 50%, rgba(255,255,255,0) 100%);
-  margin-left:10px;
-  border-radius:80% 80% 0 0;
-  position:absolute;
-  opacity:0.1;
+  .ray {
+    background: -webkit-linear-gradient(to top, rgba(255,255,255,0) 0%, rgba(236, 255, 204, 0.8) 50%, rgba(255,255,255,0) 100%);
+    background: linear-gradient(to top, rgba(255,255,255,0) 0%, rgba(246, 255, 213, 0.8) 50%, rgba(255,255,255,0) 100%);
+    margin-left:10px;
+    border-radius:80% 80% 0 0;
+    position:absolute;
+    opacity:0.1;
+  }
+
+  .ray1 {
+    height:170px;
+    width:30px;
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+    top: -150px;
+    left: 40px;
+  }
+  .ray2 {
+    height:100px;
+    width:8px;
+    transform: rotate(220deg);
+    -webkit-transform: rotate(220deg);
+    top: -49px;
+    left: 118px;
+  }
+  .ray3 {
+    height:170px;
+    width:50px;
+    transform: rotate(250deg);
+    -webkit-transform: rotate(250deg);
+    top: -36px;
+    left: 123px;
+  }
+  .ray4 {
+    height:120px;
+    width:14px;
+    transform: rotate(305deg);
+    -webkit-transform: rotate(305deg);
+    top: 74px;
+    left: 163px;
+  }
+  .ray5 {
+    height:140px;
+    width:30px;
+    transform: rotate(-15deg);
+    -webkit-transform: rotate(-15deg);
+    top: 128px;
+    left: 80px;
+  }
+  .ray6 {
+    height:90px;
+    width:50px;
+    transform:rotate(30deg);
+    -webkit-transform: rotate(30deg);
+    top: 122px;
+    left: -17px;
+  }
+  .ray7 {
+    height:180px;
+    width:10px;
+    transform: rotate(70deg);
+    -webkit-transform: rotate(70deg);
+    top: 38px;
+    left: -76px;
+  }
+  .ray8 {
+    height:120px;
+    width:30px;
+    transform: rotate(100deg);
+    -webkit-transform: rotate(100deg);
+    top: 0;
+    left: -68px;
+  }
+  .ray9 {
+    height:80px;
+    width:10px;
+    transform: rotate(120deg);
+    -webkit-transform: rotate(120deg);
+    top: -7px;
+    left: -41px;
+  }
+  .ray10 {
+    height:190px;
+    width:23px;
+    transform: rotate(150deg);
+    -webkit-transform: rotate(150deg);
+    top: -155px;
+    left: -17px;
+  }
+
+  @keyframes ray_anim {
+    0% { transform: rotate(0deg)}
+    100% {transform: rotate(360deg)}
+  }
+  @-webkit-keyframes ray_anim {
+    0% { -webkit-transform: rotate(0deg);}
+    100% { -webkit-transform: rotate(360deg); }
+  }
 }
 
-.ray1 {
-  height:170px;
-  width:30px;
-  transform: rotate(180deg);
-  -webkit-transform: rotate(180deg);
-  top: -150px;
-  left: 40px;
-}
-.ray2 {
-  height:100px;
-  width:8px;
-  transform: rotate(220deg);
-  -webkit-transform: rotate(220deg);
-  top: -49px;
-  left: 118px;
-}
-.ray3 {
-  height:170px;
-  width:50px;
-  transform: rotate(250deg);
-  -webkit-transform: rotate(250deg);
-  top: -36px;
-  left: 123px;
-}
-.ray4 {
-  height:120px;
-  width:14px;
-  transform: rotate(305deg);
-  -webkit-transform: rotate(305deg);
-  top: 74px;
-  left: 163px;
-}
-.ray5 {
-  height:140px;
-  width:30px;
-  transform: rotate(-15deg);
-  -webkit-transform: rotate(-15deg);
-  top: 128px;
-  left: 80px;
-}
-.ray6 {
-  height:90px;
-  width:50px;
-  transform:rotate(30deg);
-  -webkit-transform: rotate(30deg);
-  top: 122px;
-  left: -17px;
-}
-.ray7 {
-  height:180px;
-  width:10px;
-  transform: rotate(70deg);
-  -webkit-transform: rotate(70deg);
-  top: 38px;
-  left: -76px;
-}
-.ray8 {
-  height:120px;
-  width:30px;
-  transform: rotate(100deg);
-  -webkit-transform: rotate(100deg);
-  top: 0;
-  left: -68px;
-}
-.ray9 {
-  height:80px;
-  width:10px;
-  transform: rotate(120deg);
-  -webkit-transform: rotate(120deg);
-  top: -7px;
-  left: -41px;
-}
-.ray10 {
-  height:190px;
-  width:23px;
-  transform: rotate(150deg);
-  -webkit-transform: rotate(150deg);
-  top: -155px;
-  left: -17px;
-}
 
-@keyframes ray_anim {
-  0% { transform: rotate(0deg)}
-  100% {transform: rotate(360deg)}
-}
-@-webkit-keyframes ray_anim {
-  0% { -webkit-transform: rotate(0deg);}
-  100% { -webkit-transform: rotate(360deg); }
-}
-
-.cloud img {
-  width: 100%;
-  left: 0;
-  top: 0;
-  position: absolute;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  pointer-events: none;
-}
-.cloud1 {
-  -webkit-animation: animCloud 40s infinite linear;
-  -moz-animation: animCloud 40s infinite linear;
-  animation: animCloud 40s infinite linear
-}
-.cloud2 {
-  -webkit-animation: animCloud 60s infinite linear;
-  -moz-animation: animCloud 60s infinite linear;
-  animation: animCloud 60s infinite linear
-}
-.cloud3 {
-  -webkit-animation: animCloud 80s infinite linear;
-  -moz-animation: animCloud 80s infinite linear;
-  animation: animCloud 80s infinite linear
-}
-.cloud4 {
-  -webkit-animation: animCloud 100s infinite linear;
-  -moz-animation: animCloud 100s infinite linear;
-  animation: animCloud 100s infinite linear
-}
-@-webkit-keyframes animCloud {
-  from {
-    -webkit-transform: translateX(100%)
+.cloud {
+  img{
+    //width: 100%;
+    left: 0;
+    top: 0;
+    position: absolute;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    pointer-events: none;
   }
-  to {
-    -webkit-transform: translateX(-100%)
+  .cloud1 {
+    -webkit-animation: animCloud 120s infinite linear;
+    -moz-animation: animCloud 120s infinite linear;
+    animation: animCloud 120s infinite linear
   }
-}
-@-moz-keyframes animCloud {
-  from {
-    -moz-transform: translateX(100%)
+  .cloud2 {
+    -webkit-animation: animCloud 140s infinite linear;
+    -moz-animation: animCloud 140s infinite linear;
+    animation: animCloud 140s infinite linear
   }
-  to {
-    -moz-transform: translateX(-100%)
+  .cloud3 {
+    -webkit-animation: animCloud 160s infinite linear;
+    -moz-animation: animCloud 160s infinite linear;
+    animation: animCloud 160s infinite linear
   }
-}
-@keyframes animCloud {
-  from {
-    -webkit-transform: translateX(100%);
-    -moz-transform: translateX(100%);
-    -ms-transform: translateX(100%);
-    -o-transform: translateX(100%);
-    transform: translateX(100%)
+  .cloud4 {
+    -webkit-animation: animCloud 180s infinite linear;
+    -moz-animation: animCloud 180s infinite linear;
+    animation: animCloud 180s infinite linear
   }
-  to {
-    -webkit-transform: translateX(-100%);
-    -moz-transform: translateX(-100%);
-    -ms-transform: translateX(-100%);
-    -o-transform: translateX(-100%);
-    transform: translateX(-100%)
+  @-webkit-keyframes animCloud {
+    from {
+      -webkit-transform: translateX(100%)
+    }
+    to {
+      -webkit-transform: translateX(-100%)
+    }
+  }
+  @-moz-keyframes animCloud {
+    from {
+      -moz-transform: translateX(100%)
+    }
+    to {
+      -moz-transform: translateX(-100%)
+    }
+  }
+  @keyframes animCloud {
+    from {
+      -webkit-transform: translateX(100%);
+      -moz-transform: translateX(100%);
+      -ms-transform: translateX(100%);
+      -o-transform: translateX(100%);
+      transform: translateX(100%)
+    }
+    to {
+      -webkit-transform: translateX(-100%);
+      -moz-transform: translateX(-100%);
+      -ms-transform: translateX(-100%);
+      -o-transform: translateX(-100%);
+      transform: translateX(-100%)
+    }
   }
 }

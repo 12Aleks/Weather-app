@@ -3,11 +3,9 @@ import {Container, Row, Col,} from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Current from "./components/current";
 import Future from "./components/future";
-import FutureDay from "./components/futureDay";
-import TempStandard from "./components/tempStandard";
+import ListDays from "./components/listDays";
 import Forms from "./components/form";
 import Loader from "./components/spiner";
-import SunBackground from './assets/Images/sun.jpg';
 
 import {convert, getLanguage, getLocation} from "./location";
 import Background from "./components/background";
@@ -16,7 +14,7 @@ const KEY = process.env.REACT_APP_KEY;
 
 function App() {
     const [today, setToday] = useState(null);
-    const [futureDays, setFutureDays] = useState(null);
+    const [listDays, setListDays] = useState(null);
     const [temp, setTemp] = useState('metric');
     const [city, setCity] = useState('');
     const [loading, setLoading] = useState(true);
@@ -56,7 +54,7 @@ function App() {
                     data: await convert(lang),
                 });
 
-                setFutureDays({
+                setListDays({
                     week: futureData.daily.slice(0, 5),
                     current: futureData.daily.slice(0, 1),
                 });
@@ -98,8 +96,7 @@ function App() {
                     {loading ? <Loader/> :
                         <div className="wrapper">
                             <div className="weekDay">
-                                <h1>{day.data.weekday}</h1>
-                                <h4>{day.data.day}</h4>
+                                <h1>{day.data.weekday}, {day.data.day}</h1>
                                 {
                                     selectedDay &&
                                     <div className='data'>
@@ -120,21 +117,26 @@ function App() {
                                                 <Forms setState={(value) => setCity(value)}/>
 
                                             </div>
-                                            <TempStandard temp={temp} handleClick={updateTemp}/>
-                                            <Current today={today} futureDays={futureDays} temp={temp}/>
+                                            <div onClick={updateTemp} className="ToggleSwitch">
+                                                <div
+                                                    className={temp !== 'metric' ? 'knob active' : 'knob'}>
+                                                    {temp !== 'metric' ? `\u2109` : '\u2103'}
+                                                </div>
+                                            </div>
+                                            <Current today={today} listDays={listDays} temp={temp}/>
                                         </div>
                                     }
                                 </div>
                                 <div className="future_wrapper">
                                     {
-                                        futureDays.week.map((el, index) => {
-                                            return <FutureDay key={el.dt}
-                                                              day={el}
-                                                              week={week}
-                                                              temp={temp}
-                                                              today={today}
-                                                              index={index}
-                                                              setSelected={updateSelected}/>
+                                        listDays.week.map((el, index) => {
+                                            return <ListDays key={el.dt}
+                                                             day={el}
+                                                             week={week}
+                                                             temp={temp}
+                                                             today={today}
+                                                             index={index}
+                                                             setSelected={updateSelected}/>
                                         })
                                     }
                                 </div>

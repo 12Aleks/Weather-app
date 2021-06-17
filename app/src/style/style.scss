@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
 @import './switch';
-//@import "./spiner";
 
 $lightGrey: whitesmoke;
 $onix: #343E3D;
@@ -11,7 +11,6 @@ $borderColor: #7575757a;
 }
 
 body, html {
-  font-family: Roboto, sans-serif;
   overflow: hidden;
   height: 100%;
   margin: 0;
@@ -24,26 +23,20 @@ body, html {
   width: 100%;
 }
 
-h1, h4, p {
-  letter-spacing: 1px;
-  transform: scale(0.8, 1);
-  color: #ffffff;
+h1, p {
+  letter-spacing: 1.2px;
+  color: #fff;
   text-transform: uppercase;
   text-align: center;
 }
 
 h1 {
-  font: 300 36px/36px Lato, sans-serif;
-  margin: .9rem 0 .8rem;
-}
-
-h4 {
-  font: 300 20px/20px Lato, sans-serif;
-  margin-bottom: 1rem;
+  font: 200 36px 'Oswald', sans-serif;
+  margin: .5rem 0;
 }
 
 p {
-  font: 500 16px/16px Lato, sans-serif;
+  font: 300 16px 'Oswald', sans-serif;
   margin: 1rem 0;
   text-shadow: 0 0 .5px black;
 }
@@ -51,10 +44,11 @@ p {
 .container-fluid.selected {
   .wrapper {
     .main_wrapper .main {
-      height: 203px;
+      height: 215px;
     }
   }
 }
+
 
 .container-fluid {
   background-size: cover;
@@ -127,14 +121,19 @@ p {
       width: 100%;
       position: relative;
 
-      .current_wrapper, .future_wrapper, .current_wrapper .min_max {
+      .current_wrapper, .current_wrapper .min_max {
         display: flex;
         justify-content: center;
         align-items: center;
       }
+      .future_wrapper{
+        display: flex;
+        justify-content: center;
+        align-items: stretch;
+      }
 
       .main {
-        height: 260px;
+        height: 280px;
         width: 100%;
         position: relative;
 
@@ -153,7 +152,7 @@ p {
 
         .futureDay {
           canvas#canvas {
-            max-height: 165px;
+            max-height: 170px;
           }
         }
 
@@ -197,7 +196,7 @@ p {
             width: 50%;
 
             h2.temp {
-              font: 300 90px/75px Lato, sans-serif;
+              font: 300 90px/75px 'Lato', sans-serif;
               margin: 45px auto 15px;
               padding: 0 15px;
               text-align: center;
@@ -205,7 +204,7 @@ p {
               text-shadow: 0 0 1px #000;
 
               span {
-                font: 100 50px/50px Lato, sans-serif;
+                font: 200 50px/50px 'Oswald', sans-serif;
                 text-shadow: 0 0 1px #000;
               }
             }
@@ -253,8 +252,8 @@ p {
             border-right: 1px solid $borderColor;
           }
 
-          p {
-            font: 500 15px/15px Lato, sans-serif;
+          .min_max p, p {
+            font: 300 14px/18px "Oswald", sans-serif;
             margin: 5px 0;
           }
 
@@ -263,12 +262,6 @@ p {
             height: auto;
           }
 
-          .min_max {
-            p {
-              font: 500 15px/16px Lato, sans-serif;
-              margin: 8px 0;
-            }
-          }
           &:hover {
             background: rgb(150 150 150 / 44%);
             transition: all .7s;
@@ -291,18 +284,15 @@ p {
       .form-control {
         background: transparent;
         border: 1px solid $borderColor;
-        color: #fff;
+        font: 200 16px/16px "Oswald", sans-serif;
+        letter-spacing: 1.5px;
+        color: #ffffff;
         font-size: 16px;
         outline: none;
         text-align: center;
         transition: width 200ms;
-        width: 175px;
+        width: 200px;
         height: 32px;
-
-        &:focus {
-          width: 208px;
-          box-shadow: none;
-        }
       }
 
 
@@ -311,14 +301,13 @@ p {
         background: $borderColor;
         border-color: $borderColor;
         height: 32px;
-        letter-spacing: 1px;
         text-transform: uppercase;
-        font: 300 16px/16px Lato, sans-serif;
+        font: 200 16px/16px 'Oswald', sans-serif;
+        letter-spacing: 1.5px;
         display: flex;
         justify-content: center;
         align-items: center;
         width: 100%;
-        transform: scale(0.8, 1);
         &:focus {
           box-shadow: none;
         }
