@@ -88,9 +88,10 @@ function App() {
         })
     };
 
+
     return (
-        <Container fluid className={selectedDay && 'selected'} style={{}}>
-            <Background/>
+        <Container fluid className={`${selectedDay && 'selected'} ${!loading && today.icon.slice(2)}`} >
+            <Background />
             <Row>
                 <Col md={12}>
                     {loading ? <Loader/> :
@@ -101,8 +102,9 @@ function App() {
                                     selectedDay &&
                                     <div className='data'>
                                         <p>{!city ? 'Locality': 'City'}: {today.city}, {today.country}</p>
-                                        { city && <p onClick={() =>  { getLocationsWeather('metric'); setCity('')}}>Current location</p>}
-                                        <p onClick={() => setSelectedDay(null)}>See more current weather</p>
+                                        { city && <p className='hover'
+                                                     onClick={() =>  { getLocationsWeather('metric'); setCity('')}}>Current location</p>}
+                                        <p className='hover' onClick={() => setSelectedDay(null)}>See more current weather</p>
                                     </div>
                                 }
                             </div>
@@ -113,7 +115,7 @@ function App() {
                                         <div>
                                             <div className='data'>
                                                 <p>{!city ? 'Locality': 'City'}: {today.city}, {today.country}</p>
-                                                { city && <p onClick={() => { getLocationsWeather('metric'); setCity('')}}>Current location</p>}
+                                                { city && <p className='hover' onClick={() => { getLocationsWeather('metric'); setCity('')}}>Current location</p>}
                                                 <Forms setState={(value) => setCity(value)}/>
 
                                             </div>

@@ -7,7 +7,7 @@ import cloud4 from '../assets/cloud/cloud-04.png'
 
 const Background = () => {
     return (
-        <div>
+        <div >
             <div className="sun">
                 <div className="ray_box">
                     <div className="ray ray1"></div>

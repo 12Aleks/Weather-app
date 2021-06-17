@@ -10,13 +10,13 @@ $borderColor: #7575757a;
   box-sizing: border-box;
 }
 
-body, html {
+body {
   overflow: hidden;
   height: 100%;
   margin: 0;
   padding: 0;
-  background: #2a86d7;
 }
+
 
 #root {
   height: 100vh;
@@ -51,9 +51,7 @@ p {
 
 
 .container-fluid {
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  background: #2a86d7;
   height: 100%;
   width: 100%;
   display: flex;
@@ -106,13 +104,6 @@ p {
         p {
           letter-spacing: .6px;
         }
-        p:nth-last-child(1){
-          cursor: pointer;
-          &:hover {
-            transition: all .7s;
-            color: $borderColor;
-          }
-        }
       }
     }
 
@@ -144,9 +135,13 @@ p {
           align-items: center;
           border-top: 2px solid $borderColor;
           border-bottom: 2px solid $borderColor;
+          p.hover{
+            cursor: pointer;
 
-          p {
-            letter-spacing: .6px;
+            &:hover {
+              transition: all .7s;
+              color: $borderColor;
+            }
           }
         }
 
@@ -385,6 +380,15 @@ p {
         width: 100px;
         z-index: 2;
       }
+    }
+  }
+}
+
+.n.container-fluid{
+  background: #252850;
+  .sun{
+    .ray{
+      display: none;
     }
   }
 }
