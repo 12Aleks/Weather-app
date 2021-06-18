@@ -88,37 +88,32 @@ function App() {
         })
     };
 
+    const currentDay = async() => {
+        setSelectedDay(null);
+        setDay({
+            data: await convert(today.lang),
+        });
+    }
+
 
     return (
-        <Container fluid className={`${selectedDay && 'selected'} ${!loading && today.icon.slice(2)}`} >
+        <Container fluid className={!loading && `weather_` + today.icon} >
             <Background />
             <Row>
                 <Col md={12}>
                     {loading ? <Loader/> :
                         <div className="wrapper">
-                            <div className="weekDay">
+                            <div className='main_wrapper'>
                                 <h1>{day.data.weekday}, {day.data.day}</h1>
-                                {
-                                    selectedDay &&
+                                <div className="main">
                                     <div className='data'>
                                         <p>{!city ? 'Locality': 'City'}: {today.city}, {today.country}</p>
-                                        { city && <p className='hover'
-                                                     onClick={() =>  { getLocationsWeather('metric'); setCity('')}}>Current location</p>}
-                                        <p className='hover' onClick={() => setSelectedDay(null)}>See more current weather</p>
+                                        { city && <p className='hover' onClick={() => { getLocationsWeather('metric'); setCity('')}}>Current location</p>}
+                                        {selectedDay ? <p className='hover' onClick={currentDay}>See more current weather</p>:  <Forms setState={(value) => setCity(value)}/>}
                                     </div>
-                                }
-                            </div>
-                            <div className='main_wrapper'>
-                                <div className="main">
                                     {selectedDay ?
                                         <Future selected={selectedDay} temp={temp}/> :
                                         <div>
-                                            <div className='data'>
-                                                <p>{!city ? 'Locality': 'City'}: {today.city}, {today.country}</p>
-                                                { city && <p className='hover' onClick={() => { getLocationsWeather('metric'); setCity('')}}>Current location</p>}
-                                                <Forms setState={(value) => setCity(value)}/>
-
-                                            </div>
                                             <div onClick={updateTemp} className="ToggleSwitch">
                                                 <div
                                                     className={temp !== 'metric' ? 'knob active' : 'knob'}>

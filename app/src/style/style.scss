@@ -41,15 +41,6 @@ p {
   text-shadow: 0 0 .5px black;
 }
 
-.container-fluid.selected {
-  .wrapper {
-    .main_wrapper .main {
-      height: 215px;
-    }
-  }
-}
-
-
 .container-fluid {
   background: #2a86d7;
   height: 100%;
@@ -384,7 +375,7 @@ p {
   }
 }
 
-.n.container-fluid{
+.weather_01n.container-fluid{
   background: #252850;
   .sun{
     .ray{
