@@ -50,8 +50,8 @@ const Future = ({selected, temp}) => {
             },
             layout: {
                 padding: {
-                    top: '15',
-                    bottom: '25',
+                    top: '5',
+                    bottom: '20',
                 }
             },
 
@@ -100,7 +100,7 @@ const Future = ({selected, temp}) => {
                     })
                 }
             </div>
-            <div className='futureDay pt-2 pb-2'>
+            <div className='futureDay'>
                 <Line id='canvas' data={data} options={options}/>
             </div>
         </div>

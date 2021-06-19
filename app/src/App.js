@@ -1,14 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import {Container, Row, Col,} from "react-bootstrap";
+import {Container, Row, Col, Spinner} from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Current from "./components/current";
 import Future from "./components/future";
 import ListDays from "./components/listDays";
 import Forms from "./components/form";
-import Loader from "./components/spiner";
+
+import Background from './assets/background/spring.jpg'
 
 import {convert, getLanguage, getLocation} from "./location";
-import Background from "./components/background";
+
 
 const KEY = process.env.REACT_APP_KEY;
 
@@ -22,10 +23,11 @@ function App() {
     const [week, setWeek] = useState(null);
     const [day, setDay] = useState(null);
 
+    const lang = getLanguage();
+
     const getLocationsWeather = async (temp, city) => {
         try {
             const {coords} = await getLocation(city);
-            const lang = await getLanguage();
             let {latitude, longitude} = coords;
             if (latitude && longitude) {
                 let apiUrl = `lat=${latitude}&lon=${longitude}&lang=${lang}&units=${temp}&appid=${KEY}`;
@@ -97,19 +99,17 @@ function App() {
 
 
     return (
-        <Container fluid className={!loading && `weather_` + today.icon} >
-            <Background />
+        <Container fluid style={{backgroundImage: `url(${Background})`}} >
             <Row>
                 <Col md={12}>
-                    {loading ? <Loader/> :
                         <div className="wrapper">
-                            <div className='main_wrapper'>
+                            {loading ?  <Spinner animation="border" variant="light"  /> : <div className='main_wrapper'>
                                 <h1>{day.data.weekday}, {day.data.day}</h1>
                                 <div className="main">
                                     <div className='data'>
                                         <p>{!city ? 'Locality': 'City'}: {today.city}, {today.country}</p>
-                                        { city && <p className='hover' onClick={() => { getLocationsWeather('metric'); setCity('')}}>Current location</p>}
-                                        {selectedDay ? <p className='hover' onClick={currentDay}>See more current weather</p>:  <Forms setState={(value) => setCity(value)}/>}
+                                        { city ? <p className='hover' onClick={() => { getLocationsWeather('metric'); setCity('')}}>Current location</p>: !selectedDay &&  <Forms setState={(value) => setCity(value)}/>}
+                                        {selectedDay && <p className='hover' onClick={currentDay}>See more current weather</p>}
                                     </div>
                                     {selectedDay ?
                                         <Future selected={selectedDay} temp={temp}/> :
@@ -137,8 +137,8 @@ function App() {
                                         })
                                     }
                                 </div>
-                            </div>
-                        </div>}
+                            </div>}
+                        </div>
                 </Col>
             </Row>
         </Container>

@@ -42,7 +42,9 @@ p {
 }
 
 .container-fluid {
-  background: #2a86d7;
+  background-color: #2a86d7;
+  background-size: cover;
+  background-repeat: no-repeat;
   height: 100%;
   width: 100%;
   display: flex;
@@ -61,7 +63,8 @@ p {
     right: 0;
     bottom: 0;
     box-shadow: inset 0 0 2000px rgba(255, 255, 255, .5);
-    filter: blur(10px);
+    filter: blur(5px)  sepia(30%);
+    -webkit-filter: blur(5px)  sepia(30%);
   }
 
   .wrapper {
@@ -72,33 +75,23 @@ p {
     background: #b7b7b1ba;
     box-shadow: 0 0 35px rgba($onix, 0.4);
     width: 650px;
+    height: 570px;
     border-radius: 20px;
     overflow: hidden;
     position: relative;
+    z-index: 100;
     transition: box-shadow 350ms;
 
     &:hover {
       box-shadow: 0 0 10px rgba($onix, 0.4);
     }
-
-    .weekDay {
-      width: 100%;
-
-      .data {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-top: 2px solid $borderColor;
-        border-bottom: 2px solid $borderColor;
-        margin-bottom: 5px;
-        p {
-          letter-spacing: .6px;
-        }
-      }
+    .spinner-border{
+      position: absolute;
+      top: 44%;
+      left: 46%;
+      width: 60px;
+      height: 60px;
     }
-
-
     .main_wrapper {
       width: 100%;
       position: relative;
@@ -115,14 +108,14 @@ p {
       }
 
       .main {
-        height: 280px;
+        height: 270px;
         width: 100%;
         position: relative;
 
         .data {
           width: 100%;
           display: flex;
-          justify-content: space-between;
+          justify-content: space-around;
           align-items: center;
           border-top: 2px solid $borderColor;
           border-bottom: 2px solid $borderColor;
@@ -138,7 +131,7 @@ p {
 
         .futureDay {
           canvas#canvas {
-            max-height: 170px;
+            max-height: 150px;
           }
         }
 
@@ -147,7 +140,7 @@ p {
           display: flex;
           justify-content: space-between;
           align-items: center;
-
+          margin: 10px 0;
           img {
             height: auto;
             width: 50px;
@@ -162,6 +155,7 @@ p {
             width: 100%;
 
             p {
+              margin: .5rem 0;
               float: left;
             }
           }
@@ -201,6 +195,9 @@ p {
           }
 
           .min_max {
+            p:nth-child(1){
+              margin-right: 25px;
+            }
             p {
               margin-bottom: 15px;
             }
@@ -268,7 +265,7 @@ p {
       justify-content: center;
 
       .form-control {
-        background: transparent;
+        background: #f8f9fa45;
         border: 1px solid $borderColor;
         font: 200 16px/16px "Oswald", sans-serif;
         letter-spacing: 1.5px;
@@ -279,6 +276,9 @@ p {
         transition: width 200ms;
         width: 200px;
         height: 32px;
+        &:focus{
+          box-shadow: none;
+        }
       }
 
 
@@ -296,6 +296,12 @@ p {
         width: 100%;
         &:focus {
           box-shadow: none;
+        }
+        &:active{
+          color: #fff;
+          box-shadow: none !important;
+          background-color: $borderColor;
+          border-color: $borderColor;
         }
       }
     }
@@ -371,15 +377,6 @@ p {
         width: 100px;
         z-index: 2;
       }
-    }
-  }
-}
-
-.weather_01n.container-fluid{
-  background: #252850;
-  .sun{
-    .ray{
-      display: none;
     }
   }
 }

@@ -4,13 +4,14 @@ import icons from "../icons";
 import Wind from "./wind";
 import MinMax from "./minMax";
 
+
 const Current = ({today, temp, listDays}) => {
     const{icon, wind, curTemp, description } = today;
     return (
         <div className="current_wrapper">
             <div className='img_wrapper'>
                 <Image src={icons[`${icon}`].default} alt="weather icon"/>
-                <div className='d-flex align-items-center justify-content-center'>
+                <div className='min_max'>
                     <p>Sunrise: {today.sunrise}</p>
                     <p>Sunset: {today.sunset}</p>
                 </div>
