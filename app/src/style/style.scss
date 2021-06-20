@@ -275,7 +275,7 @@ p {
         text-align: center;
         transition: width 200ms;
         width: 200px;
-        height: 32px;
+        height: 34px;
         &:focus{
           box-shadow: none;
         }
@@ -288,7 +288,7 @@ p {
         border-color: $borderColor;
         height: 32px;
         text-transform: uppercase;
-        font: 200 16px/16px 'Oswald', sans-serif;
+        font: 200 14px/14px 'Oswald', sans-serif;
         letter-spacing: 1.5px;
         display: flex;
         justify-content: center;

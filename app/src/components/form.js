@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Form, Button} from "react-bootstrap";
 
 
-const Forms = ({setState}) => {
+const Forms = ({setState,t}) => {
     const [value, setValue] = useState('');
 
     function updateValue(e) {
@@ -20,11 +20,11 @@ const Forms = ({setState}) => {
             <Form.Control
                 type="text"
                 value={value}
-                placeholder="Enter city"
+                placeholder={t('enter')}
                 onChange={updateValue}
             />
             <Button variant="primary" onClick={() => submitForm()}>
-                Submit
+             {t('Submit')}
             </Button>
         </div>
     );

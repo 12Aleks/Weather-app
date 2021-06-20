@@ -1,19 +1,5 @@
 const KEY = process.env.REACT_APP_KEY;
 
-//
-// export async function getSeason(){
-//     const d = new Date();
-//     let seasonArray = [
-//         {name: 'spring', date: new Date(d.getFullYear(),2,(d.getFullYear() % 4 === 0) ? 19 : 20).getTime()},
-//         {name: 'summer', date: new Date(d.getFullYear(),5,(d.getFullYear() % 4 === 0) ? 20 : 21).getTime()},
-//         {name: 'autumn', date: new Date(d.getFullYear(),8,(d.getFullYear() % 4 === 0) ? 22 : 23).getTime()},
-//         {name: 'sinter', date: new Date(d.getFullYear(),11,(d.getFullYear() % 4 === 0) ? 20 : 21).getTime()}
-//     ];
-//     const season = await seasonArray.filter(({ date }) => date <= d).slice(-1)[0] || {name: "Winter"}
-//     console.log(season.name)
-//     return {season}
-// }
-
 export async function getLocation(value) {
     if(value){
         let position = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${value}&appid=${KEY}`);
@@ -27,10 +13,9 @@ export async function getLocation(value) {
     }
 }
 
-
 export function getLanguage() {
     const lang =  navigator.language.slice(0, 2);
-    if(lang === 'ru' || lang === 'pl' || lang === 'uk' ) return lang
+    if(lang === 'ru' || 'pl' || 'uk' || 'fr' ) return lang
     else return 'en'
 }
 

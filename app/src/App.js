@@ -2,9 +2,10 @@ import React, {useEffect, useState} from 'react';
 import {Container, Row, Col, Spinner} from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Current from "./components/current";
-import Future from "./components/future";
-import ListDays from "./components/listDays";
 import Forms from "./components/form";
+import ListDays from "./components/listDays";
+import Future from "./components/future";
+import {useTranslation} from "react-i18next";
 
 import Background from './assets/background/spring.jpg'
 
@@ -22,8 +23,11 @@ function App() {
     const [selectedDay, setSelectedDay] = useState(null);
     const [week, setWeek] = useState(null);
     const [day, setDay] = useState(null);
+   
 
-    const lang = getLanguage();
+    const lang  = getLanguage();
+
+    const {t} = useTranslation();
 
     const getLocationsWeather = async (temp, city) => {
         try {
@@ -107,9 +111,10 @@ function App() {
                                 <h1>{day.data.weekday}, {day.data.day}</h1>
                                 <div className="main">
                                     <div className='data'>
-                                        <p>{!city ? 'Locality': 'City'}: {today.city}, {today.country}</p>
-                                        { city ? <p className='hover' onClick={() => { getLocationsWeather('metric'); setCity('')}}>Current location</p>: !selectedDay &&  <Forms setState={(value) => setCity(value)}/>}
-                                        {selectedDay && <p className='hover' onClick={currentDay}>See more current weather</p>}
+                                        <p>{!city ? `${t('Locality')}`: `${t('City')}`}: {today.city}, {today.country}</p>
+                                        { city ? <p className='hover' onClick={() => { getLocationsWeather('metric'); setCity('')}}>{t('Current')}</p>: !selectedDay 
+                                        &&  <Forms setState={(value) => setCity(value)} t={t}/>}
+                                        {selectedDay && <p className='hover' onClick={currentDay}>{t('more')}</p>}
                                     </div>
                                     {selectedDay ?
                                         <Future selected={selectedDay} temp={temp}/> :
@@ -131,6 +136,7 @@ function App() {
                                                              day={el}
                                                              week={week}
                                                              temp={temp}
+                                                             t={t}
                                                              today={today}
                                                              index={index}
                                                              setSelected={updateSelected}/>
