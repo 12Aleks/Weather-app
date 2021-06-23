@@ -1,8 +1,12 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {Form, Button} from "react-bootstrap";
+import {useTranslation} from "react-i18next";
+import {Context} from "../index";
+import {observer} from "mobx-react-lite";
 
-
-const Forms = ({setState,t}) => {
+const Forms = observer(() => {
+    const {data} = useContext(Context);
+    const {t} = useTranslation();
     const [value, setValue] = useState('');
 
     function updateValue(e) {
@@ -11,7 +15,7 @@ const Forms = ({setState,t}) => {
     }
 
     function submitForm() {
-        setState(value);
+        data.setCity(value);
         setValue('')
     }
 
@@ -28,6 +32,6 @@ const Forms = ({setState,t}) => {
             </Button>
         </div>
     );
-};
+});
 
 export default Forms;

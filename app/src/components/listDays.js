@@ -1,19 +1,24 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Image} from "react-bootstrap";
+import MinMax from "./minMax";
 import icons from "../icons";
 import {convert, weekWeather} from "../location";
-import MinMax from "./minMax";
 import {useTranslation} from "react-i18next";
 
-const ListDays = ({day, temp, today, index, week, setSelected}) => {
-    const {long, weekday} = convert(today.lang, day.dt);
+import {observer} from "mobx-react-lite";
+import {Context} from "../index";
+
+const ListDays = observer(({day, index, setSelected}) => {
+    const {data} = useContext(Context);
     const {t} = useTranslation();
+
+    const {long, weekday} = convert(data.today.lang, day.dt);
     const getDay = async (select, long, weekday) => {
         setSelected({
-            rez: await weekWeather(week.list, select),
+            rez: await weekWeather(data.week.list, select),
             dayDate: {long, weekday}
         })
-    }
+    };
 
     return (
         <div style={{width: 20 + '%'}} className='day' onClick={() => getDay(index, long, weekday)}>
@@ -22,9 +27,9 @@ const ListDays = ({day, temp, today, index, week, setSelected}) => {
                 <div><p className='today'>{t('Today')}</p></div>
             }
             <Image src={icons[`${day.weather[0].icon}`].default} alt="weather icon"/>
-            <MinMax temp={temp} state={day}/>
+            <MinMax  state={day}/>
         </div>
     );
-};
+});
 
 export default ListDays;

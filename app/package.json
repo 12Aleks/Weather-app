@@ -10,6 +10,8 @@
     "chart.js": "^3.3.2",
     "chartjs-plugin-datalabels": "^2.0.0-rc.1",
     "i18next": "^20.3.2",
+    "mobx": "^6.3.2",
+    "mobx-react-lite": "^3.2.0",
     "ng2-charts": "^2.4.2",
     "react": "^17.0.2",
     "react-bootstrap": "^1.6.1",

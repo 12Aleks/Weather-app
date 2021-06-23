@@ -1,19 +1,25 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Line} from "react-chartjs-2";
 import {Chart} from 'chart.js';
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import icons from "../icons";
 import {Image} from "react-bootstrap";
+import {observer} from 'mobx-react-lite';
+import {Context} from "../index";
+
 
 Chart.register(ChartDataLabels);
 
-const Future = ({selected, temp}) => {
-    const [data, setData] = useState(null);
+const Future = observer(() => {
+
+    const {data} = useContext(Context);
+
+    const [weather, setWeather] = useState(null);
     const [options, setOptions] = useState(null);
-    const {temps, images, time} = selected.rez
+    const {temps, images, time} = data.selectedDay.rez;
 
     const chart = (temps, gradient, time) => {
-        setData({
+        setWeather({
             labels: time,
             datasets: [
                 {
@@ -27,7 +33,7 @@ const Future = ({selected, temp}) => {
                     borderColor: 'rgba(12,22,98, 0.1)',
                 },
             ]
-        })
+        });
 
         setOptions({
             animation: false,
@@ -62,7 +68,7 @@ const Future = ({selected, temp}) => {
                 datalabels: {
                     color: '#343E3D',
                     formatter: (val) => {
-                        return val + ` ${temp !== 'metric' ? `\u2109` : '\u2103'}`
+                        return val + ` ${data.temp !== 'metric' ? `\u2109` : '\u2103'}`
                     },
                     labels: {
                         title: {
@@ -101,10 +107,10 @@ const Future = ({selected, temp}) => {
                 }
             </div>
             <div className='futureDay'>
-                <Line id='canvas' data={data} options={options}/>
+                <Line id='canvas' data={weather} options={options}/>
             </div>
         </div>
     );
-};
+});
 
 export default Future;
