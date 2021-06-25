@@ -9,6 +9,7 @@ export default class useIndex {
         this._selectedDay = null;
         this._city = '';
         this._week = null;
+        this._active = null;
         makeAutoObservable(this)
     }
 
@@ -35,8 +36,13 @@ export default class useIndex {
         this._city = city
     }
 
+
     setWeek(week){
         this._week = week
+    }
+
+    setActive(active){
+        this._active = active
     }
 
     get today() {
@@ -66,5 +72,8 @@ export default class useIndex {
 
     get week(){
         return this._week
+    }
+    get active(){
+        return this._active
     }
 }

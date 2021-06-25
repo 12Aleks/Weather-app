@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {Image} from "react-bootstrap";
 import MinMax from "./minMax";
 import icons from "../icons";
@@ -13,15 +13,17 @@ const ListDays = observer(({day, index, setSelected}) => {
     const {t} = useTranslation();
 
     const {long, weekday} = convert(data.today.lang, day.dt);
+
     const getDay = async (select, long, weekday) => {
+        data.setActive(select)
         setSelected({
             rez: await weekWeather(data.week.list, select),
             dayDate: {long, weekday}
-        })
+        });
     };
 
     return (
-        <div style={{width: 20 + '%'}} className='day' onClick={() => getDay(index, long, weekday)}>
+        <div style={{width: 20 + '%'}} className={data.active === index? 'day active': 'day'}  onClick={() => getDay(index, long, weekday)}>
             {index ? <div><p>{weekday}</p>
                     <p>{long}</p></div>:
                 <div><p className='today'>{t('Today')}</p></div>

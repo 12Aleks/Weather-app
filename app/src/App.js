@@ -15,6 +15,7 @@ import {Context} from "./index";
 
 
 const KEY = process.env.REACT_APP_KEY;
+const KEY_S = process.env.REACT_APP_KEY_SECOND;
 
 const App = observer(() => {
     const {data} = useContext(Context);
@@ -89,6 +90,7 @@ const App = observer(() => {
 
     const currentDay = async () => {
         data.setSelectedDay(null);
+        data.setActive(null);
         data.setDay({
             data: await convert(data.today.lang),
         });
@@ -106,7 +108,8 @@ const App = observer(() => {
                                     <p>{!data.city ? `${t('Locality')}` : `${t('City')}`}: {data.today.city}, {data.today.country}</p>
                                     {data.city ? <p className='hover' onClick={() => {
                                         getLocationsWeather('metric');
-                                        data.setCity('')
+                                        data.setActive(null);
+                                        data.setCity('');
                                     }}>{t('Current')}</p> : !data.selectedDay && <Forms />}
                                     {data.selectedDay && <p className='hover' onClick={currentDay}>{t('more')}</p>}
                                 </div>
