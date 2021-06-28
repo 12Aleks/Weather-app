@@ -28,25 +28,23 @@ const App = observer(() => {
             const {coords} = await getLocation(city);
             let {latitude, longitude} = coords;
             if (latitude && longitude) {
-
                 const [currentData, futureData, rez] = await Promise.all([
                     fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&lang=${lang}&units=${temp}&appid=${KEY}`).then(response => response.json()),
                     fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&lang=${lang}&units=${temp}&appid=${KEY_S}`).then(response => response.json()),
                     fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&lang=${lang}&units=${temp}&appid=${KEY}`).then(response => response.json()),
-                ]);
-
+                ]).catch(e => console.log(e));
                 data.setToday({
                     city: currentData.name,
                     country: currentData.sys.country,
-                    lang: lang,
+                    lang,
                     curTemp: Math.ceil(currentData.main.temp),
                     icon: currentData.weather[0].icon,
                     description: currentData.weather[0].description,
                     sunrise: await convert(currentData.sys.country, 0, currentData.sys.sunrise),
                     sunset: await convert(currentData.sys.country, 0, currentData.sys.sunset),
                     wind: currentData.wind,
-                    latitude: latitude,
-                    longitude: longitude,
+                    latitude,
+                    longitude,
                 });
 
                 data.setDay({
@@ -63,8 +61,8 @@ const App = observer(() => {
 
                 setLoading(false);
             }
-        } catch (e) {
-            console.log("Error", e)
+        } catch (error) {
+            console.log("Error", error)
         }
     };
 

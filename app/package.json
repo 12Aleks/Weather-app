@@ -9,6 +9,8 @@
     "bootstrap": "^4.6.0",
     "chart.js": "^3.3.2",
     "chartjs-plugin-datalabels": "^2.0.0-rc.1",
+    "firebase": "^8.6.8",
+    "firebase-tools": "^9.14.0",
     "i18next": "^20.3.2",
     "mobx": "^6.3.2",
     "mobx-react-lite": "^3.2.0",
