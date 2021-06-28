@@ -2,6 +2,8 @@ The weather app is written in React using free data obtained from the openweathe
 
 ![snip_20210626065529](https://user-images.githubusercontent.com/29119498/123502287-92e05a00-d64b-11eb-884f-6782d9e0759d.png)
 
+Project works with the help of Firebase on a free hosting. Project Address: https://weather-97994.web.app/
+
 The app determines the location of the device and the current weather in your region. 
  - You can find out what the weather will be during the day and the weather forecast for 4 future days.
  - You can find out the forecast by the name of the city at the moment and for 4 future days
