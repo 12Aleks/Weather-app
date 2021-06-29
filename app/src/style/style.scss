@@ -23,7 +23,7 @@ body {
   width: 100%;
 }
 
-h1, p {
+h1, h3, p {
   letter-spacing: 1.2px;
   color: #fff;
   text-transform: uppercase;
@@ -34,7 +34,10 @@ h1 {
   font: 200 36px 'Oswald', sans-serif;
   margin: .5rem 0;
 }
-
+h3{
+  font: 200 18px 'Oswald', sans-serif;
+  margin: .5rem 0;
+}
 p {
   font: 300 16px 'Oswald', sans-serif;
   margin: 1rem 0;
@@ -383,5 +386,13 @@ p {
     }
   }
 }
-
+.error{
+  .wrapper{
+    justify-content: center;
+    button{
+      display: block;
+      margin: 20px auto;
+    }
+  }
+}
 

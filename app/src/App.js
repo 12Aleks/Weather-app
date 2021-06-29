@@ -12,6 +12,7 @@ import Background from './assets/background/spring.jpg'
 
 import {convert, getLanguage, getLocation} from "./location";
 import {Context} from "./index";
+import Error from "./components/error";
 
 
 const KEY = process.env.REACT_APP_KEY;
@@ -21,6 +22,7 @@ const App = observer(() => {
     const {data} = useContext(Context);
     const {t} = useTranslation();
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const lang = getLanguage();
 
     const getLocationsWeather = async (temp, city) => {
@@ -62,7 +64,8 @@ const App = observer(() => {
                 setLoading(false);
             }
         } catch (error) {
-            console.log("Error", error)
+            setError(error);
+            setLoading(false);
         }
     };
 
@@ -92,13 +95,12 @@ const App = observer(() => {
             data: await convert(data.today.lang),
         });
     };
-
     return (
-        <Container fluid style={{backgroundImage: `url(${Background})`}}>
+        <Container fluid style={{backgroundImage: `url(${Background})`}} className={error && 'error'}>
             <Row>
                 <Col md={12}>
                     <div className="wrapper">
-                        {loading ? <Spinner animation="border" variant="light"/> : <div className='main_wrapper'>
+                        {loading ? <Spinner animation="border" variant="light"/> : !loading && error? <Error error={error}/> : <div className='main_wrapper'>
                             <h1>{data.day.data.weekday}, {data.day.data.day}</h1>
                             <div className="main">
                                 <div className='data'>
