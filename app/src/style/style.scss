@@ -389,9 +389,31 @@ p {
 .error{
   .wrapper{
     justify-content: center;
+    div.error{
+      border-radius: 20px;
+      width: 80%;
+      min-height: 200px;
+      background-color: #dc3545;
+      padding: 15px;
+    }
+
     button{
+      font: 200 18px 'Oswald', sans-serif;
+      letter-spacing: 1.2px;
       display: block;
       margin: 20px auto;
+      text-transform: uppercase;
+    }
+    .form{
+      input.form-control{
+        width: 60%;
+        background: #fff;
+        color: gray;
+      }
+      button{
+        max-width: 40%;
+        height: 35px;
+      }
     }
   }
 }

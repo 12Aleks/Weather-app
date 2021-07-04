@@ -20,7 +20,11 @@ const resources = {
             "enter": "Enter city name",
             "Submit":"Send",
             "Today": "Today",
-
+            "error": "Error",
+            "Geolocation": "User denied Geolocation",
+            "code": "code",
+            "location": "Get your current location",
+            "title": "ENTER THE NAME OF YOUR CITY"
         }
     },
     pl: {
@@ -38,7 +42,12 @@ const resources = {
             "more":"Obecna pogoda",
             "enter": "Nazwa miasta",
             "Submit":"Wysyłać",
-            "Today": "Dzisiaj"
+            "Today": "Dzisiaj",
+            "error": "Błąd",
+            "Geolocation": "Geolokalizacja zabroniona przez użytkownika",
+            "code": "Кod",
+            "location": "Uzyskaj aktualną lokalizację",
+            "title": "LUB WPISZ NAZWĘ SWOJEGO MIASTA"
         }
     },
     ru: {
@@ -56,7 +65,12 @@ const resources = {
             "more":"Текущая погода",
             "enter": "Hазвание города",
             "Submit":"Отправить",
-            "Today": "Сегодня"
+            "Today": "Сегодня",
+            "error": "Ошибка",
+            "Geolocation": "Геолокация запрещена пользователем",
+            "code": "Код",
+            "location": "Получите свое текущее местоположение",
+            "title": "Или введите название своего города"
         }
     },
     uk: {
@@ -74,7 +88,12 @@ const resources = {
             "more":"Поточна погода",
             "enter": "Hазвa міста",
             "Submit":"Висилати",
-            "Today": "Сьогодні"
+            "Today": "Сьогодні",
+            "error": "Помилка",
+            "Geolocation": "Геолокація заборонена користувачем",
+            "code": "Код",
+            "location": "Отримайте своє поточне місце розташування",
+            "title": "Або введіть назву свого міста"
         }
     },
     fr: {
@@ -92,7 +111,12 @@ const resources = {
             "more":"Météo actuelle",
             "enter": "Nom de la ville",
             "Submit":"Envoyer",
-            "Today": "Aujourd'hui"
+            "Today": "Aujourd'hui",
+            "error": "Erreur",
+            "Geolocation": "Géolocalisation refusée par l'Utilisateur",
+            "code": "code",
+            "location": "Obtenez votre position actuelle",
+            "title": "Ou entrez le nom de votre ville",
         }
     }
 };

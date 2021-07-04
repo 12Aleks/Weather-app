@@ -9,7 +9,7 @@ export async function getLocation(value) {
     }else{
         return new Promise((resolve, reject) => {
             navigator.geolocation.getCurrentPosition(resolve, reject)
-        })
+        });
     }
 }
 

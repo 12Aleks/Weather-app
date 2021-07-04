@@ -26,9 +26,12 @@ const App = observer(() => {
     const lang = getLanguage();
 
     const getLocationsWeather = async (temp, city) => {
+        console.log('get')
         try {
             const {coords} = await getLocation(city);
+            console.log('Coords', coords)
             let {latitude, longitude} = coords;
+            console.log(latitude, longitude)
             if (latitude && longitude) {
                 const [currentData, futureData, rez] = await Promise.all([
                     fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&lang=${lang}&units=${temp}&appid=${KEY}`).then(response => response.json()),
@@ -100,7 +103,7 @@ const App = observer(() => {
             <Row>
                 <Col md={12}>
                     <div className="wrapper">
-                        {loading ? <Spinner animation="border" variant="light"/> : !loading && error? <Error error={error}/> : <div className='main_wrapper'>
+                        {loading ? <Spinner animation="border" variant="light"/> : !loading && error? <Error error={error} getLocationsWeather={getLocation}/> : <div className='main_wrapper'>
                             <h1>{data.day.data.weekday}, {data.day.data.day}</h1>
                             <div className="main">
                                 <div className='data'>
