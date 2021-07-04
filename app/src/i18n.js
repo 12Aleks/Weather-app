@@ -21,7 +21,7 @@ const resources = {
             "Submit":"Send",
             "Today": "Today",
             "error": "Error",
-            "Geolocation": "User denied Geolocation",
+            "Geolocation": "Geolocation is not enabled. Please enable to use this feature in your browser",
             "code": "code",
             "location": "Get your current location",
             "title": "ENTER THE NAME OF YOUR CITY"
@@ -44,7 +44,7 @@ const resources = {
             "Submit":"Wysyłać",
             "Today": "Dzisiaj",
             "error": "Błąd",
-            "Geolocation": "Geolokalizacja zabroniona przez użytkownika",
+            "Geolocation": "Geolokalizacja nie jest włączona. Proszę włączyć tę funkcję w swojej przeglądarce",
             "code": "Кod",
             "location": "Uzyskaj aktualną lokalizację",
             "title": "LUB WPISZ NAZWĘ SWOJEGO MIASTA"
@@ -67,7 +67,7 @@ const resources = {
             "Submit":"Отправить",
             "Today": "Сегодня",
             "error": "Ошибка",
-            "Geolocation": "Геолокация запрещена пользователем",
+            "Geolocation": "Геолокация не включена. Пожалуйста, включите эту функцию в своем браузере",
             "code": "Код",
             "location": "Получите свое текущее местоположение",
             "title": "Или введите название своего города"
@@ -90,7 +90,7 @@ const resources = {
             "Submit":"Висилати",
             "Today": "Сьогодні",
             "error": "Помилка",
-            "Geolocation": "Геолокація заборонена користувачем",
+            "Geolocation": "Геолокація не включена. Будь ласка, включіть цю функцію в своєму браузері",
             "code": "Код",
             "location": "Отримайте своє поточне місце розташування",
             "title": "Або введіть назву свого міста"
@@ -113,7 +113,7 @@ const resources = {
             "Submit":"Envoyer",
             "Today": "Aujourd'hui",
             "error": "Erreur",
-            "Geolocation": "Géolocalisation refusée par l'Utilisateur",
+            "Geolocation": "La géolocalisation n'est pas activée. Veuillez activer cette fonctionnalité dans votre navigateur",
             "code": "code",
             "location": "Obtenez votre position actuelle",
             "title": "Ou entrez le nom de votre ville",
