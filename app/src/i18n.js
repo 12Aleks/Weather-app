@@ -41,7 +41,7 @@ const resources = {
             "Max":"Max",
             "more":"Obecna pogoda",
             "enter": "Nazwa miasta",
-            "Submit":"Wysyłać",
+            "Submit":"Wyślij",
             "Today": "Dzisiaj",
             "error": "Błąd",
             "Geolocation": "Geolokalizacja nie jest włączona. Proszę włączyć tę funkcję w swojej przeglądarce",
