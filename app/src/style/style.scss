@@ -31,15 +31,15 @@ h1, h3, p {
 }
 
 h1 {
-  font: 200 36px 'Oswald', sans-serif;
+  font: 200 clamp(2rem, 2vw, 2.25rem) Oswald, sans-serif;
   margin: .5rem 0;
 }
 h3{
-  font: 200 18px 'Oswald', sans-serif;
+  font: 200 clamp(1rem, 2vw, 1.125rem) Oswald, sans-serif;
   margin: .5rem 0;
 }
 p {
-  font: 300 16px 'Oswald', sans-serif;
+  font: 300 clamp(.75rem, 2vw, 1rem) Oswald, sans-serif;
   margin: 1rem 0;
   text-shadow: 0 0 .5px black;
 }
@@ -77,8 +77,9 @@ p {
     padding: 15px;
     background: #b7b7b1ba;
     box-shadow: 0 0 35px rgba($onix, 0.4);
-    width: 650px;
-    height: 562px;
+    max-width: 650px;
+    width: 100vw;
+    max-height: 562px;
     border-radius: 20px;
     overflow: hidden;
     position: relative;
@@ -179,7 +180,7 @@ p {
             width: 50%;
 
             h2.temp {
-              font: 300 90px/75px 'Lato', sans-serif;
+              font: 300 clamp(5rem, 5vw ,5.625rem)/75px 'Lato', sans-serif;
               margin: 45px auto 15px;
               padding: 0 15px;
               text-align: center;
@@ -187,7 +188,7 @@ p {
               text-shadow: 0 0 1px #000;
 
               span {
-                font: 200 50px/50px 'Oswald', sans-serif;
+                font: 200 clamp(3rem, 5vw, 3.125rem)/50px 'Oswald', sans-serif;
                 text-shadow: 0 0 1px #000;
               }
             }
@@ -239,7 +240,7 @@ p {
           }
 
           .min_max p, p {
-            font: 300 14px/18px "Oswald", sans-serif;
+            font: 300 clamp(.75rem ,2vw, .875rem)/18px "Oswald", sans-serif;
             margin: 5px 0;
           }
 
