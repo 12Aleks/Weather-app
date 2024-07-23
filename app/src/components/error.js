@@ -1,4 +1,3 @@
-import React from 'react';
 import Forms from "./form";
 import {useTranslation} from "react-i18next";
 

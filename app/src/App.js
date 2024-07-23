@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import  {useContext, useEffect, useState} from 'react';
 import {Col, Container, Row, Spinner} from "react-bootstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {observer} from "mobx-react-lite";
@@ -33,7 +33,7 @@ const App = observer(() => {
             if (latitude && longitude) {
                 const [currentData, futureData, rez] = await Promise.all([
                     fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&lang=${lang}&units=${temp}&appid=${KEY}`).then(response => response.json()),
-                    fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&lang=${lang}&units=${temp}&appid=${KEY_S}`).then(response => response.json()),
+                    fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${latitude}&lon=${longitude}&lang=${lang}&units=${temp}&appid=${KEY_S}`).then(response => response.json()),
                     fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${latitude}&lon=${longitude}&lang=${lang}&units=${temp}&appid=${KEY}`).then(response => response.json()),
                 ]).catch(e => console.log(e));
                 data.setToday({

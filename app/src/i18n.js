@@ -1,7 +1,6 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import {getLanguage} from "./location";
-import React from "react";
 const lang = getLanguage();
 const resources = {
     en: {

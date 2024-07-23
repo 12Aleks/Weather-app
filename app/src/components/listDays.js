@@ -1,5 +1,5 @@
-import React, {useContext, useState} from 'react';
-import {Image} from "react-bootstrap";
+import {useContext} from 'react';
+import Image from 'react-bootstrap/Image';
 import MinMax from "./minMax";
 import icons from "../icons";
 import {convert, weekWeather} from "../location";
@@ -28,7 +28,7 @@ const ListDays = observer(({day, index, setSelected}) => {
                     <p>{long}</p></div>:
                 <div><p className='today'>{t('Today')}</p></div>
             }
-            <Image src={icons[`${day.weather[0].icon}`].default} alt="weather icon"/>
+            <Image src={icons[`${day.weather[0].icon}`]} alt="weather icon"/>
             <MinMax  state={day}/>
         </div>
     );

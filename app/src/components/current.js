@@ -1,5 +1,5 @@
-import React, {useContext} from 'react';
-import {Image} from "react-bootstrap";
+import {useContext} from 'react';
+import Image from "react-bootstrap/Image";
 import icons from "../icons";
 import MinMax from "./minMax";
 import {useTranslation} from "react-i18next";
@@ -8,14 +8,13 @@ import {Context} from "../index";
 
 const Current = observer(() => {
     const {data} = useContext(Context);
-
-
     const {t} = useTranslation();
     const{icon, wind, curTemp, description } = data.today;
+
     return (
         <div className="current_wrapper">
             <div className='img_wrapper'>
-                <Image src={icons[`${icon}`].default} alt="weather icon"/>
+                <Image src={icons[`${icon}`]} alt="weather icon"/>
                 <div className='min_max'>
                     <p>{t('Sunrise')}: {data.today.sunrise}</p>
                     <p>{t('Sunset')}: {data.today.sunset}</p>

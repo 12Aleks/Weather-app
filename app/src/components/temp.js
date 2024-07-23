@@ -1,8 +1,5 @@
-import React from 'react';
 
 const Temp = ({temp, handleClick}) => {
-
-
     return (
         <div onClick={handleClick} className="ToggleSwitch">
             <div

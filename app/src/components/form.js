@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import {useContext, useState} from 'react';
 import {Form, Button} from "react-bootstrap";
 import {useTranslation} from "react-i18next";
 import {Context} from "../index";
